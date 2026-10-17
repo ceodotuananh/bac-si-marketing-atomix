@@ -277,6 +277,8 @@ textarea.fi{padding:12px 14px;min-height:88px;resize:vertical}
 .vein{stroke-dasharray:100;stroke-dashoffset:100;animation:vein 7s ease-in-out infinite}
 @keyframes vein{0%,6%{stroke-dashoffset:100}22%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
 .organ{animation:infect 7s ease-in-out infinite}
+.crack{stroke-dasharray:100;stroke-dashoffset:100;animation:crack 7s ease-in-out infinite}
+@keyframes crack{0%,14%{stroke-dashoffset:100}26%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
 @keyframes infect{0%,14%{fill:#2a0812;stroke:rgba(255,140,145,.45)}26%,86%{fill:#c40d18;stroke:#ffb3b8}100%{fill:#2a0812;stroke:rgba(255,140,145,.45)}}
 .core{transform-box:fill-box;transform-origin:center;animation:grow 7s ease-in-out infinite}
 @keyframes grow{0%,5%{transform:scale(.55)}30%,86%{transform:scale(1)}100%{transform:scale(.55)}}
@@ -636,6 +638,33 @@ header .btn-red{min-height:42px!important;font-size:14px!important;padding:0 16p
 <circle class="organ" cx="100" cy="300" r="40" style="animation-delay: 1.9s"></circle>
 <circle class="organ" cx="540" cy="300" r="40" style="animation-delay: 2.4s"></circle>
 <circle class="organ" cx="320" cy="345" r="34" style="animation-delay: 2.9s"></circle>
+</g>
+<g class="cracks" aria-hidden="true" fill="none" stroke="#ffe4e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path class="crack" style="animation-delay: 0.9s" pathLength="100" d="M120.0 80.0 L120.2 68.9 L132.4 63.6 L132.2 52.2 L139.2 45.9"></path>
+<path class="crack" style="animation-delay: 0.9s" pathLength="100" d="M120.0 80.0 L131.1 79.0 L137.6 90.6 L150.3 81.6 L154.8 97.9"></path>
+<path class="crack" style="animation-delay: 0.9s" pathLength="100" d="M120.0 80.0 L122.7 90.8 L109.0 97.4 L118.3 110.3 L106.8 116.8"></path>
+<path class="crack" style="animation-delay: 0.9s" pathLength="100" d="M120.0 80.0 L109.0 81.4 L104.1 67.0 L89.7 77.8 L83.8 65.3"></path>
+
+<path class="crack" style="animation-delay: 1.4s" pathLength="100" d="M520.0 80.0 L521.3 69.0 L536.1 67.2 L531.5 51.9 L542.5 48.1"></path>
+<path class="crack" style="animation-delay: 1.4s" pathLength="100" d="M520.0 80.0 L531.1 80.6 L538.6 88.8 L549.0 89.1 L555.9 95.4"></path>
+<path class="crack" style="animation-delay: 1.4s" pathLength="100" d="M520.0 80.0 L522.3 90.8 L510.8 98.4 L516.1 110.1 L498.9 112.9"></path>
+<path class="crack" style="animation-delay: 1.4s" pathLength="100" d="M520.0 80.0 L509.1 82.2 L503.1 68.2 L490.4 73.0 L484.5 63.6"></path>
+
+<path class="crack" style="animation-delay: 1.9s" pathLength="100" d="M100.0 300.0 L101.0 289.0 L112.0 283.3 L106.8 270.4 L120.6 266.8"></path>
+<path class="crack" style="animation-delay: 1.9s" pathLength="100" d="M100.0 300.0 L111.1 299.5 L117.4 311.0 L130.1 304.0 L134.3 318.7"></path>
+<path class="crack" style="animation-delay: 1.9s" pathLength="100" d="M100.0 300.0 L101.3 311.0 L89.7 317.8 L91.5 329.2 L80.1 333.6"></path>
+<path class="crack" style="animation-delay: 1.9s" pathLength="100" d="M100.0 300.0 L89.1 302.0 L83.1 288.3 L70.2 294.0 L67.5 278.2"></path>
+
+<path class="crack" style="animation-delay: 2.4s" pathLength="100" d="M540.0 300.0 L541.6 289.0 L553.1 284.2 L555.0 273.6 L559.7 266.2"></path>
+<path class="crack" style="animation-delay: 2.4s" pathLength="100" d="M540.0 300.0 L551.0 298.6 L556.2 312.7 L570.3 302.5 L574.9 317.7"></path>
+<path class="crack" style="animation-delay: 2.4s" pathLength="100" d="M540.0 300.0 L542.7 310.8 L527.8 316.5 L531.8 329.3 L521.4 334.4"></path>
+<path class="crack" style="animation-delay: 2.4s" pathLength="100" d="M540.0 300.0 L528.9 299.8 L522.2 289.7 L510.6 292.4 L505.7 281.2"></path>
+
+<path class="crack" style="animation-delay: 2.9s" pathLength="100" d="M320.0 345.0 L321.0 335.6 L331.9 332.2 L331.7 322.0 L343.5 321.5"></path>
+<path class="crack" style="animation-delay: 2.9s" pathLength="100" d="M320.0 345.0 L329.4 344.0 L334.1 355.4 L345.8 346.4 L348.6 362.0"></path>
+<path class="crack" style="animation-delay: 2.9s" pathLength="100" d="M320.0 345.0 L320.5 354.4 L308.2 357.9 L312.6 369.7 L306.9 375.5"></path>
+<path class="crack" style="animation-delay: 2.9s" pathLength="100" d="M320.0 345.0 L310.7 346.3 L306.0 334.6 L294.2 344.0 L290.2 330.2"></path>
+
 </g>
 <g font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">
 <text x="120" y="85">Bán hàng</text><text x="520" y="85">Nhân sự</text><text x="100" y="305">Tài chính</text><text x="540" y="305">Sản phẩm</text><text x="320" y="350">CSKH</text>
