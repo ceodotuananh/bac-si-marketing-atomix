@@ -1,0 +1,1134 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Atomix – Phòng khám Bác sĩ Marketing</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#16020a;color:#fff4f3;font-family:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+a{color:#ff6b72}a:hover{color:#ffffff}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative}
+.galaxy{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse 70% 55% at 18% 8%,rgba(227,16,28,.42),transparent 60%),radial-gradient(ellipse 50% 45% at 88% 28%,rgba(255,52,110,.20),transparent 60%),radial-gradient(ellipse 80% 60% at 50% 105%,rgba(150,6,24,.55),transparent 65%),linear-gradient(180deg,#22030b 0%,#14020a 55%,#1c0309 100%)}
+.stars{position:absolute;inset:-50px;background-image:radial-gradient(1.3px 1.3px at 22px 34px,#fff,transparent),radial-gradient(1px 1px at 128px 82px,#ffd9db,transparent),radial-gradient(1.6px 1.6px at 210px 160px,#fff,transparent),radial-gradient(1px 1px at 60px 200px,#ffb3b8,transparent),radial-gradient(1.2px 1.2px at 170px 240px,#fff,transparent);background-size:280px 280px;opacity:.6}
+.page{position:relative;z-index:1;width:100%;overflow-x:clip}
+section{position:relative;padding:110px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:inherit;transition:transform .2s ease,background .2s ease}
+.btn:focus-visible,.tabbtn:focus-visible,.onode:focus-visible,.fi:focus-visible{outline:3px solid #ffd0d3;outline-offset:3px}
+.btn-red{background:#e3101c;color:#fff;box-shadow:0 12px 30px -10px rgba(255,40,55,.75)}
+.btn-red:hover{background:#ff2834;color:#fff;transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.06);color:#fff4f3;border-color:rgba(255,140,145,.35)}
+.btn-ghost:hover{border-color:#ff3b45;color:#fff;background:rgba(255,59,69,.14)}
+.btn-white{background:#fff;color:#b30c16}
+.btn-white:hover{background:#ffe9ea;color:#7a0710}
+.btn-ink{background:#2a0510;color:#fff}
+.btn-ink:hover{background:#c40d18;color:#fff}
+.logo-glow{display:block;filter:drop-shadow(0 0 10px rgba(255,70,80,.55))}
+
+.h2{font-size:clamp(28px,3.8vw,50px);font-weight:900;line-height:1.18;text-transform:uppercase;margin:0;text-wrap:balance;color:#fff}
+.h2 em{font-style:normal;color:#ff3b45;text-shadow:0 0 30px rgba(255,40,55,.55)}
+.lead{font-size:clamp(16.5px,1.5vw,19px);line-height:1.65;color:#ecc4c7;margin:0;font-weight:500;max-width:620px}
+.tagx{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,140,145,.3);font-size:14px;font-weight:800;color:#ffe0e2}
+.tagx svg{width:26px;height:26px;flex:none}
+.ico{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* motion */
+.bob{animation:bob 4s ease-in-out infinite}
+.bob2{animation:bob 5s ease-in-out .8s infinite}
+.bob3{animation:bob 4.6s ease-in-out 1.6s infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.spinS{transform-box:fill-box;transform-origin:center;animation:spin 18s linear infinite}
+.spinR{transform-box:fill-box;transform-origin:center;animation:spin 26s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ecg{stroke-dasharray:700;stroke-dashoffset:700;animation:ecgDraw 3s linear infinite}
+@keyframes ecgDraw{0%{stroke-dashoffset:700}70%,100%{stroke-dashoffset:0}}
+.beat{transform-box:fill-box;transform-origin:center;animation:beat 1.1s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.14)}30%{transform:scale(.97)}45%{transform:scale(1.08)}}
+.blink{animation:qblink 1.4s ease-in-out infinite}
+@keyframes qblink{0%,100%{opacity:.25}50%{opacity:1}}
+.sweep{transform-origin:50% 50%;animation:spin 6s linear infinite}
+.fadeIn{animation:fadeIn .45s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center;min-height:760px;padding:40px 0 60px}
+.hero h1{font-size:clamp(34px,5vw,68px);font-weight:900;line-height:1.08;margin:0;text-transform:uppercase;color:#fff;letter-spacing:-.01em;text-wrap:balance}
+.hero h1 span{display:block;color:#ff3b45;text-shadow:0 0 34px rgba(255,40,55,.55)}
+.hero-art svg{display:block;width:100%;height:auto;overflow:visible}
+.vitals{display:flex;flex-wrap:wrap;gap:12px}
+.vital{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:18px;background:rgba(30,4,10,.7);border:1px solid rgba(255,140,145,.22);font-size:14.5px;font-weight:700;color:#ffe0e2}
+.vital .vi{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(150deg,#ff5a62,#b30c16);box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 8px 18px -8px rgba(255,40,55,.9)}
+
+/* THÓI QUEN XẤU: phim X-quang */
+.lightbox{border-radius:34px;padding:10px;background:linear-gradient(180deg,#3b0a14,#1a0309);border:1px solid rgba(255,140,145,.25);box-shadow:0 50px 100px -50px rgba(0,0,0,.9)}
+.film{border-radius:26px;background:radial-gradient(ellipse at 50% 0%,rgba(190,220,255,.13),transparent 70%),#0d0306;padding:28px;position:relative;overflow:hidden}
+.film::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 2px,transparent 2px 5px);pointer-events:none}
+.hrow{display:grid;grid-template-columns:minmax(0,1fr) 80px minmax(0,1fr);align-items:center;gap:0}
+.hhead{font-size:14px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:0 18px 18px}
+.hcell{padding:18px 22px;font-size:17px;line-height:1.5;font-weight:600}
+.hcell.body{color:#d7e6f5;text-align:right}
+.hcell.biz{color:#fff}
+.hmid{display:flex;justify-content:center;position:relative;height:100%}
+.hmid::before{content:'';position:absolute;top:0;bottom:0;left:50%;width:2px;background:linear-gradient(#ff3b45,rgba(255,59,69,.15))}
+.hdot{position:relative;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#16020a;border:2px solid #ff3b45;color:#ff6b72;align-self:center}
+.hrow + .hrow .hcell{border-top:1px dashed rgba(255,255,255,.1)}
+.closer{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:center;margin-top:26px;padding:24px 28px;border-radius:26px;background:linear-gradient(100deg,rgba(227,16,28,.42),rgba(60,3,10,.85));border:1.5px solid #ff3b45}
+
+/* ICEBERG */
+.iceb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.ilist{display:flex;flex-direction:column;gap:10px}
+.ilabel{font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.ipill{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;font-size:16px;font-weight:700}
+.ipill.top{background:rgba(255,255,255,.08);color:#fff}
+.ipill.deep{background:rgba(255,59,69,.16);border:1px solid rgba(255,90,100,.45);color:#ffe0e2}
+
+/* BỆNH ÁN theo nhóm */
+.chart{display:grid;grid-template-columns:300px minmax(0,1fr);gap:0;align-items:stretch}
+.tabs{display:flex;flex-direction:column;gap:8px;padding:22px 0}
+.tabbtn{position:relative;display:flex;align-items:center;gap:12px;min-height:58px;padding:8px 18px 8px 10px;border-radius:16px 0 0 16px;border:1px solid rgba(255,140,145,.2);border-right:0;background:rgba(255,255,255,.04);color:#ffe0e2;font-family:inherit;font-size:15.5px;font-weight:700;text-align:left;cursor:pointer;margin-right:-1px}
+.tabbtn:hover{background:rgba(255,59,69,.14)}
+.tabbtn.on{background:#fffaf9;color:#2a0510;border-color:#fffaf9;z-index:2}
+.tile{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;background:linear-gradient(150deg,#ff5a62 0%,#c40d18 60%,#7a0710 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.4),inset 0 -3px 0 rgba(0,0,0,.25),0 8px 16px -8px rgba(255,40,55,.9)}
+.record{position:relative;border-radius:0 30px 30px 30px;background:linear-gradient(180deg,#fffaf9,#f5e7e8);color:#2a0510;padding:36px 40px;box-shadow:0 50px 90px -40px rgba(0,0,0,.85);overflow:hidden}
+.record::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 37px,rgba(196,13,24,.07) 37px 38px);pointer-events:none}
+.rhead{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:16px;border-bottom:2px solid #c40d18}
+.rtitle{font-size:15px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#c40d18}
+.rfield{display:grid;grid-template-columns:130px minmax(0,1fr);gap:12px;font-size:16px;line-height:1.5;padding:10px 0;border-bottom:1px dashed rgba(42,5,16,.18)}
+.rfield b{color:#7a4a50;font-weight:700}
+.rname{font-size:clamp(22px,2.2vw,28px);font-weight:900;color:#2a0510;line-height:1.25}
+.sym{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sym li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;line-height:1.5;font-weight:600;padding:12px 14px;border-radius:12px;background:#fff;border:1px solid #ecd3d5}
+.sym svg{flex:none;width:20px;height:20px;margin-top:2px}
+.dx{font-size:clamp(20px,2vw,24px);font-weight:900;color:#c40d18;font-style:italic;line-height:1.3}
+.stamp{position:absolute;right:30px;bottom:96px;transform:rotate(-12deg);border:3px solid rgba(196,13,24,.75);color:rgba(196,13,24,.85);border-radius:12px;padding:8px 14px;font-weight:900;font-size:15px;letter-spacing:.08em;text-transform:uppercase;text-align:center;line-height:1.25;pointer-events:none}
+
+/* ĐƠN THUỐC */
+.rxwrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.rxpaper{position:relative;transform:rotate(-1.6deg);border-radius:10px;background:linear-gradient(180deg,#fffdfc,#f4e6e7);color:#2a0510;padding:40px 42px 34px;box-shadow:0 60px 100px -40px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.4)}
+.rxpaper::before{content:'';position:absolute;top:-14px;left:50%;width:120px;height:28px;margin-left:-60px;border-radius:6px;background:rgba(255,210,214,.55);transform:rotate(2deg)}
+.rxtop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:2px solid #2a0510;padding-bottom:14px}
+.rxR{font-size:58px;font-weight:900;font-style:italic;color:#c40d18;line-height:.9}
+.med{display:grid;grid-template-columns:70px minmax(0,1fr);gap:16px;align-items:center;padding:16px 0;border-bottom:1px dashed rgba(42,5,16,.22)}
+.med svg{width:70px;height:auto;display:block}
+.mname{font-size:18px;font-weight:800;line-height:1.35}
+.muse{font-size:15px;color:#6b3b41;line-height:1.5;margin-top:4px}
+.muse b{color:#c40d18}
+.sign{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:20px}
+.sig{font-size:26px;font-style:italic;font-weight:800;color:#2a0510;opacity:.85}
+
+/* QUÉT 8 HẠNG MỤC (quỹ đạo) */
+.scanwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.orbit{position:relative;width:100%;max-width:560px;aspect-ratio:1/1;margin:0 auto}
+.orbit > svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.nucleus{position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#5a0d18,#1a0309 70%);box-shadow:0 0 60px rgba(255,40,55,.55),inset 0 0 30px rgba(255,59,69,.35)}
+.nucleus img{width:120px;height:auto}
+.onode{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;padding:0;cursor:pointer;font-family:inherit;color:#ffe0e2;width:110px}
+.onode .ob{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#4a0a14,#1c0309);border:2px solid rgba(255,140,145,.45);color:#ff9ea3;transition:transform .2s ease}
+.onode .ol{font-size:13px;font-weight:800;line-height:1.25;text-align:center;text-shadow:0 2px 8px #16020a}
+.onode:hover .ob{transform:scale(1.08);border-color:#ff3b45}
+.onode.on .ob{background:radial-gradient(circle at 35% 30%,#ff6b72,#c40d18 60%,#7a0710);border-color:#fff;color:#fff;box-shadow:0 0 0 8px rgba(255,59,69,.2),0 0 34px rgba(255,59,69,.9)}
+.onode.on .ol{color:#fff}
+.kpanel{border-radius:28px;padding:32px;background:rgba(30,4,10,.85);border:1.5px solid rgba(255,90,100,.45);display:flex;flex-direction:column;gap:18px;min-height:440px;box-shadow:0 30px 80px -40px rgba(255,40,55,.8)}
+.ktag{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ff9ea3}
+.kbar{flex:1;height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden}
+.kbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#ff3b45,#ffb3b8);transition:width .4s ease}
+.ktitle{font-size:clamp(24px,2.4vw,32px);font-weight:900;color:#fff;line-height:1.2;margin:0}
+.ksub{font-size:15.5px;color:#e8b9bc;margin:0;line-height:1.5}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.checks li{display:flex;gap:12px;align-items:flex-start;font-size:16.5px;line-height:1.5;color:#fff4f3;font-weight:600;padding:13px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,140,145,.28)}
+.checks svg{flex:none;width:22px;height:22px;margin-top:1px}
+.knav{display:flex;gap:10px;margin-top:auto}
+
+/* BẢNG GIÁ: phiếu chỉ định */
+.plans{display:flex;flex-direction:column;gap:18px;width:100%}
+.plan{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.5fr) minmax(0,.9fr);gap:28px;align-items:center;padding:28px 32px;border-radius:28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,140,145,.22);position:relative}
+.plan.hot{background:linear-gradient(110deg,rgba(227,16,28,.42),rgba(60,3,10,.92));border:1.5px solid #ff3b45;box-shadow:0 30px 70px -30px rgba(255,40,55,.9)}
+.pno{font-size:13px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ff9ea3}
+.pname{font-size:clamp(22px,2.2vw,28px);font-weight:900;color:#fff;line-height:1.2;margin:6px 0 0}
+.pfor{font-size:14.5px;color:#e8b9bc;margin:8px 0 0;line-height:1.5}
+.plist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.plist li{display:flex;gap:10px;font-size:15.5px;line-height:1.5;color:#ffe0e2;font-weight:600}
+.plist svg{flex:none;width:20px;height:20px;margin-top:2px}
+.pprice{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.pnow{font-size:clamp(30px,3vw,40px);font-weight:900;color:#fff;line-height:1}
+.pnow small{display:block;font-size:13px;font-weight:700;color:#e8b9bc;margin-top:6px}
+.badge{position:absolute;top:-14px;left:32px;padding:6px 14px;border-radius:999px;background:#fff;color:#b30c16;font-size:13px;font-weight:900}
+
+/* QUÀ */
+.giftband{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;align-items:center;padding:36px;border-radius:34px;background:rgba(30,4,10,.7);border:1px solid rgba(255,140,145,.25)}
+.grow{display:grid;grid-template-columns:90px minmax(0,1fr);gap:18px;align-items:center;padding:16px 0;border-bottom:1px dashed rgba(255,140,145,.25)}
+.grow svg{width:90px;height:auto;display:block}
+.gval{font-size:14px;font-weight:800;color:#ffd34d}
+.gname{font-size:18px;font-weight:800;color:#fff;line-height:1.4;margin-top:2px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:rgba(255,59,69,.14);border:1px solid rgba(255,90,100,.4);color:#ffe0e2;font-size:14.5px;font-weight:700}
+
+/* ĐĂNG KÝ */
+.book{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:center}
+.form{position:relative;border-radius:24px;background:linear-gradient(180deg,#fffaf9,#f5e7e8);color:#2a0510;padding:34px;display:flex;flex-direction:column;gap:14px;box-shadow:0 50px 90px -40px rgba(0,0,0,.85)}
+.ftop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:12px;border-bottom:2px solid #c40d18}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fl{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:800;color:#5a2a31}
+.fi{min-height:50px;border-radius:12px;border:1.5px solid #e2c3c6;background:#fff;color:#2a0510;font-family:inherit;font-size:16px;padding:0 14px}
+textarea.fi{padding:12px 14px;min-height:88px;resize:vertical}
+.fi:focus{outline:none;border-color:#c40d18;box-shadow:0 0 0 3px rgba(196,13,24,.18)}
+
+
+/* TỰ KHÁM */
+.selfx{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:36px;align-items:start}
+.stepn{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:900;color:#fff}
+.stepn i{font-style:normal;flex:none;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e3101c;font-size:15px;box-shadow:0 0 0 5px rgba(227,16,28,.2)}
+.gtiles{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.gtile{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 8px;border-radius:18px;border:1px solid rgba(255,140,145,.22);background:rgba(255,255,255,.04);color:#ffe0e2;font-family:inherit;font-size:13.5px;font-weight:800;line-height:1.3;cursor:pointer;text-align:center;min-height:120px;transition:background .2s ease}
+.gtile:hover{background:rgba(255,59,69,.12)}
+.gtile.on{border-color:#ff3b45;background:rgba(227,16,28,.3);color:#fff;box-shadow:0 0 0 3px rgba(255,59,69,.25)}
+.gtile:focus-visible{outline:3px solid #ffd0d3;outline-offset:3px}
+.gtile .tile{width:48px;height:48px;border-radius:14px}
+.symgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sbox{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:16px;border:1.5px solid rgba(255,140,145,.22);background:rgba(30,4,10,.7);cursor:pointer;font-size:15.5px;font-weight:600;line-height:1.45;color:#fff4f3;transition:background .2s ease,border-color .2s ease}
+.sbox:hover{border-color:rgba(255,90,100,.55)}
+.sbox.on{border-color:#ff3b45;background:rgba(227,16,28,.24)}
+.sbox input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin:0;border-radius:7px;border:2px solid rgba(255,160,165,.6);background:transparent;display:grid;place-content:center;cursor:pointer}
+.sbox input:checked{background:#e3101c;border-color:#e3101c}
+.sbox input:checked::before{content:'';width:11px;height:6px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:translateY(-2px) rotate(-45deg)}
+.sbox input:focus-visible{outline:3px solid #ffd0d3;outline-offset:2px}
+.stag{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:800;vertical-align:1px;white-space:nowrap}
+.stag.mkt{background:rgba(255,255,255,.12);color:#ffd0d3}
+.stag.sale{background:rgba(245,184,46,.18);color:#ffd34d}
+.fd{width:100%;min-height:96px;border-radius:16px;border:1.5px solid rgba(255,140,145,.3);background:rgba(255,255,255,.05);color:#fff;font-family:inherit;font-size:16px;padding:14px 16px;resize:vertical;line-height:1.5}
+.fd:focus{outline:none;border-color:#ff3b45;box-shadow:0 0 0 3px rgba(255,59,69,.25)}
+.thermo{position:sticky;top:110px;display:flex;flex-direction:column;align-items:center;gap:14px;padding:26px 18px;border-radius:26px;background:rgba(30,4,10,.8);border:1px solid rgba(255,140,145,.25);text-align:center}
+.tube{position:relative;width:38px;height:230px;border-radius:19px;background:rgba(255,255,255,.08);border:2px solid rgba(255,200,205,.35);overflow:hidden}
+.tube::after{content:'';position:absolute;left:7px;top:10px;width:6px;bottom:10px;border-radius:3px;background:rgba(255,255,255,.18)}
+.tfill{position:absolute;left:0;right:0;bottom:0;transition:height .5s cubic-bezier(.3,.8,.3,1),background .3s ease;background:#7a4a50}
+.tfill.lv1{background:linear-gradient(0deg,#b47208,#f5b82e)}
+.tfill.lv2{background:linear-gradient(0deg,#c2410c,#ff8a3d)}
+.tfill.lv3{background:linear-gradient(0deg,#7a0710,#ff3b45)}
+.bulb{width:64px;height:64px;margin-top:-24px;border-radius:50%;border:2px solid rgba(255,200,205,.35);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#fff;background:radial-gradient(circle at 35% 30%,#ff8a90,#c40d18 60%,#5a040c)}
+.tcount{font-size:40px;font-weight:900;color:#fff;line-height:1}
+.tlvl{font-size:15px;font-weight:800;color:#ffd0d3}
+
+/* POPUP chẩn đoán */
+.modal{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(10,1,4,.8);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.mcard{position:relative;width:100%;max-width:640px;max-height:calc(100vh - 40px);overflow:auto;border-radius:28px;background:linear-gradient(180deg,#fffaf9,#f5e7e8);color:#2a0510;padding:32px;box-shadow:0 60px 120px -30px rgba(0,0,0,.9);animation:popIn .5s cubic-bezier(.2,.8,.2,1.15) both;display:flex;flex-direction:column;gap:16px}
+@keyframes popIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:1;transform:none}}
+.mx{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(42,5,16,.08);color:#2a0510;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mx:hover{background:rgba(196,13,24,.15)}
+.mx:focus-visible{outline:3px solid #c40d18;outline-offset:2px}
+.lvbadge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font-weight:900;font-size:15px;text-transform:uppercase;letter-spacing:.06em}
+.lvbadge.lv1{background:#ffe7a8;color:#6b4100}
+.lvbadge.lv2{background:#ffd2b0;color:#8a3200}
+.lvbadge.lv3{background:#c40d18;color:#fff}
+.mhead{font-size:clamp(22px,2.6vw,28px);font-weight:900;line-height:1.25;margin:0}
+.mmsg{font-size:16px;line-height:1.6;color:#5a2a31;margin:0}
+.mstats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mstat{padding:14px 16px;border-radius:14px;background:#fff;border:1px solid #ecd3d5}
+.mstat b{display:block;font-size:26px;font-weight:900;color:#c40d18;line-height:1.1}
+.mstat span{font-size:13.5px;font-weight:700;color:#7a4a50}
+.mlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.mlist li{display:flex;gap:10px;font-size:15px;line-height:1.45;font-weight:600}
+.mlist svg{flex:none;width:18px;height:18px;margin-top:2px}
+.mrx{padding:14px 16px;border-radius:14px;border:2px dashed #c40d18;font-size:16px;font-weight:700;line-height:1.5}
+.mrx b{color:#c40d18}
+.needle{transform-box:view-box;transform-origin:100px 100px;transition:transform .9s cubic-bezier(.3,1.4,.4,1)}
+
+
+/* MASCOT */
+.hero-art{position:relative}
+.hero-art .hbg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mascot{position:relative;display:block;width:86%;height:auto;margin:0 auto;filter:drop-shadow(0 30px 34px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgba(255,59,69,.35))}
+.mascot.float{animation:bob 4.2s ease-in-out infinite}
+.avatar{flex:none;border-radius:50%;object-fit:cover;object-position:50% 40%;background:#fff;border:3px solid #ff3b45;box-shadow:0 10px 24px -10px rgba(255,40,55,.9)}
+.bubble{position:relative;padding:10px 14px;border-radius:16px;background:#fff;color:#2a0510;font-size:14px;font-weight:800;line-height:1.4}
+.bubble::after{content:'';position:absolute;left:50%;bottom:-8px;margin-left:-8px;border:8px solid transparent;border-bottom:0;border-top-color:#fff}
+
+/* TỰ BỐC THUỐC */
+.selfmed{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center}
+.caps{display:flex;flex-direction:column;gap:16px}
+.caphead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;font-size:14px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.caphead span{padding:0 28px}
+.caprow{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+.cl{padding:22px 70px 22px 30px;border-radius:999px 0 0 999px;background:linear-gradient(180deg,#ffffff,#f1dfe0 60%,#c9b3b5);color:#2a0510;font-size:16px;font-weight:700;line-height:1.45;position:relative;overflow:hidden}
+.cr{padding:22px 30px 22px 70px;border-radius:0 999px 999px 0;background:linear-gradient(180deg,#ff6b72,#e3101c 55%,#8a0812);color:#fff;font-size:16px;font-weight:700;line-height:1.45;position:relative;overflow:hidden}
+.cl::before,.cr::before{content:'';position:absolute;left:30px;right:30px;top:6px;height:8px;border-radius:8px;background:rgba(255,255,255,.55)}
+.cr::before{background:rgba(255,255,255,.3)}
+.cseam{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#16020a;color:#ffd0d3;font-size:13.5px;font-weight:900;white-space:nowrap;border:2px solid #ff3b45;box-shadow:0 0 18px rgba(255,59,69,.6)}
+.bottle-tilt{transform-box:fill-box;transform-origin:50% 100%;animation:tilt 4s ease-in-out infinite}
+@keyframes tilt{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-24deg)}}
+.spill{animation:spill 2.8s ease-in infinite}
+.spill2{animation-delay:.7s}.spill3{animation-delay:1.4s}.spill4{animation-delay:2.1s}
+@keyframes spill{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(var(--sx),150px) rotate(220deg);opacity:0}}
+
+/* KHỐI U */
+.tumor{position:relative;padding:130px 0;overflow:hidden;background:radial-gradient(ellipse 60% 50% at 50% 55%,rgba(120,4,16,.55),transparent 70%)}
+.tq{font-size:clamp(15px,1.4vw,18px);font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#ff9ea3}
+.big1{display:block;font-size:clamp(54px,10vw,150px);font-weight:900;line-height:.92;letter-spacing:-.03em;text-transform:uppercase;color:#fff;animation:flick 4s steps(1) infinite}
+@keyframes flick{0%,100%{opacity:1}46%{opacity:1}47%{opacity:.35}48%{opacity:1}52%{opacity:.5}53%{opacity:1}}
+.big2{display:block;font-size:clamp(34px,6.4vw,96px);font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;background:linear-gradient(90deg,#ff3b45 0%,#ff3b45 48%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.16) 100%);background-size:220% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:spreadT 6s cubic-bezier(.6,0,.3,1) infinite;filter:drop-shadow(0 0 22px rgba(255,40,55,.45))}
+@keyframes spreadT{0%,8%{background-position:100% 0}62%,90%{background-position:0 0}100%{background-position:100% 0}}
+.vein{stroke-dasharray:320;stroke-dashoffset:320;animation:vein 7s ease-in-out infinite}
+@keyframes vein{0%,6%{stroke-dashoffset:320}22%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:320}}
+.organ{animation:infect 7s ease-in-out infinite}
+@keyframes infect{0%,14%{fill:#2a0812;stroke:rgba(255,140,145,.45)}26%,86%{fill:#c40d18;stroke:#ffb3b8}100%{fill:#2a0812;stroke:rgba(255,140,145,.45)}}
+.core{transform-box:fill-box;transform-origin:center;animation:grow 7s ease-in-out infinite}
+@keyframes grow{0%,5%{transform:scale(.55)}30%,86%{transform:scale(1)}100%{transform:scale(.55)}}
+
+/* VOUCHER */
+.voucher{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;border-radius:30px;background:linear-gradient(110deg,#e3101c,#8a0812 70%);box-shadow:0 40px 90px -40px rgba(255,40,55,.9);overflow:hidden}
+.vleft{padding:30px 40px;border-right:3px dashed rgba(255,255,255,.45);display:flex;flex-direction:column;align-items:center;gap:4px}
+.vbig{font-size:clamp(56px,7vw,92px);font-weight:900;line-height:.95;color:#fff;letter-spacing:-.02em;text-shadow:0 6px 0 rgba(90,4,12,.6)}
+.vsmall{font-size:14px;font-weight:900;letter-spacing:.16em;color:#ffd0d3;text-transform:uppercase}
+.vtext{padding:30px 40px;font-size:clamp(19px,2vw,26px);font-weight:800;line-height:1.45;color:#fff;margin:0;text-wrap:balance}
+
+@supports (animation-timeline: view()){
+.rv{animation:eRise linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+.rv2{animation:eRise linear both;animation-timeline:view();animation-range:entry 10% cover 36%}
+.zm{animation:eZoom linear both;animation-timeline:view();animation-range:entry 0% cover 36%}
+.hrow{animation:eSlide linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
+.plan{animation:eRise linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
+}
+@keyframes eRise{from{opacity:0;transform:translateY(70px)}to{opacity:1;transform:none}}
+@keyframes eZoom{from{opacity:0;transform:scale(.8);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes eSlide{from{opacity:0;clip-path:inset(0 50% 0 50%)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+
+@media (max-width:1000px){
+.hero,.iceb,.rxwrap,.scanwrap,.book,.giftband{grid-template-columns:minmax(0,1fr)}
+.hero{min-height:0;padding-top:24px}
+.chart{grid-template-columns:minmax(0,1fr)}
+.tabs{flex-direction:row;overflow-x:auto;padding:0 0 10px;gap:8px}
+.selfx{grid-template-columns:minmax(0,1fr)}
+.selfmed{grid-template-columns:minmax(0,1fr)}
+.thermo{position:relative;top:0;flex-direction:row;flex-wrap:wrap;justify-content:center}
+.tube{width:220px;height:30px}.tfill{display:none}.bulb{display:none}
+.gtiles{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tabbtn{flex:none;border-radius:14px;border-right:1px solid rgba(255,140,145,.2);margin:0}
+.record{border-radius:24px}
+.plan{grid-template-columns:minmax(0,1fr);gap:18px}
+.rxpaper{transform:none}
+}
+@media (max-width:640px){
+.wrap{padding:0 18px}
+section{padding:72px 0}
+.hide-sm{display:none!important}
+.hrow{grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr)}
+.hcell{padding:14px 8px;font-size:14.5px}
+.hdot{width:32px;height:32px}
+.hdot svg{width:16px;height:16px}
+.hhead{padding:0 8px 12px;font-size:12px}
+.film{padding:16px 8px}
+.closer{grid-template-columns:minmax(0,1fr)}
+.record{padding:26px 20px}
+.rfield{grid-template-columns:minmax(0,1fr);gap:2px}
+.sym,.fgrid{grid-template-columns:minmax(0,1fr)}
+.stamp{display:none}
+.orbit{aspect-ratio:auto;max-width:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.orbit > svg,.nucleus{display:none}
+.onode{position:static;transform:none;width:auto}
+.rxpaper{padding:30px 20px}
+.form{padding:24px 18px}
+.giftband{padding:24px 18px}
+.gtiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+.symgrid,.mstats{grid-template-columns:minmax(0,1fr)}
+.caphead{display:none}
+.caprow{grid-template-columns:minmax(0,1fr)}
+.cl{border-radius:28px 28px 0 0;padding:20px 22px 30px}
+.cr{border-radius:0 0 28px 28px;padding:30px 22px 20px}
+.cl::after{content:"Sức khỏe";display:block;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#7a4a50;margin-top:6px}
+.cr::after{content:"Marketing";display:block;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#ffd0d3;margin-top:6px}
+.tumor{padding:80px 0}
+.mcard{padding:24px 18px}
+.voucher{grid-template-columns:minmax(0,1fr)}
+.vleft{border-right:0;border-bottom:3px dashed rgba(255,255,255,.45)}
+.vtext{padding:24px 22px}
+}
+
+.dxrow{position:relative;margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end}
+.mtop{display:grid;grid-template-columns:200px minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:640px){
+/* header 1 hàng */
+.hbar{min-height:62px!important;gap:10px!important;flex-wrap:nowrap!important}
+.hlogo{height:46px!important;margin:-4px -4px -4px -10px!important}
+.hbrand > span:first-child{font-size:19px!important}
+.hbrand > span:last-child{font-size:9.5px!important;letter-spacing:.05em!important;margin-top:3px!important}
+header .btn-red{min-height:42px!important;font-size:14px!important;padding:0 16px!important;white-space:nowrap;flex:none}
+/* dải chốt: xếp dọc */
+.closer{grid-template-columns:minmax(0,1fr)!important;justify-items:center;text-align:center;gap:14px;padding:22px 18px}
+.closer .btn{width:100%}
+/* chẩn đoán + nút: xếp dọc */
+.dxrow{grid-template-columns:minmax(0,1fr);gap:16px}
+.dxrow .btn{width:100%}
+/* popup: đồng hồ trên, mức độ dưới */
+.mtop{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}
+.mtop svg{max-width:200px}
+.mtop > div{align-items:center!important}
+.mcard .btn{width:100%}
+}
+@media (max-width:360px){.hbrand > span:last-child{display:none}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}html{scroll-behavior:auto}.ecg,.vein{stroke-dashoffset:0}.big2{background-position:0 0}.organ{fill:#c40d18}}
+</style>
+</helmet>
+
+<div id="top" style="position: relative">
+<div class="galaxy"><div class="stars"></div></div>
+
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+<defs>
+<linearGradient id="gPaper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffdfc"></stop><stop offset="1" stop-color="#ecd9da"></stop></linearGradient>
+<linearGradient id="gBoard" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d1222c"></stop><stop offset="1" stop-color="#6e0610"></stop></linearGradient>
+<linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"></stop><stop offset=".45" stop-color="#d8cfd0"></stop><stop offset="1" stop-color="#857879"></stop></linearGradient>
+<linearGradient id="gCapR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a90"></stop><stop offset=".45" stop-color="#e3101c"></stop><stop offset="1" stop-color="#6e0610"></stop></linearGradient>
+<linearGradient id="gCapW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"></stop><stop offset=".5" stop-color="#f3e3e4"></stop><stop offset="1" stop-color="#a99294"></stop></linearGradient>
+<linearGradient id="gCapG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0b8"></stop><stop offset=".5" stop-color="#f5b82e"></stop><stop offset="1" stop-color="#9a5f06"></stop></linearGradient>
+<radialGradient id="gHeart" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ff9aa0"></stop><stop offset=".45" stop-color="#e3101c"></stop><stop offset="1" stop-color="#5a040c"></stop></radialGradient>
+<radialGradient id="gChest" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"></stop><stop offset=".5" stop-color="#cfc4c5"></stop><stop offset="1" stop-color="#6f6364"></stop></radialGradient>
+<linearGradient id="gIceTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"></stop><stop offset="1" stop-color="#e9c9cc"></stop></linearGradient>
+<linearGradient id="gIceDeep" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a62" stop-opacity=".55"></stop><stop offset="1" stop-color="#5a040c" stop-opacity=".25"></stop></linearGradient>
+<linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a0a16" stop-opacity=".9"></stop><stop offset="1" stop-color="#16020a" stop-opacity=".2"></stop></linearGradient>
+<radialGradient id="gGlow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff3b45" stop-opacity=".45"></stop><stop offset="1" stop-color="#ff3b45" stop-opacity="0"></stop></radialGradient>
+
+<linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb3b8" stop-opacity=".55"></stop><stop offset=".35" stop-color="#ffffff" stop-opacity=".85"></stop><stop offset=".6" stop-color="#ff9aa0" stop-opacity=".5"></stop><stop offset="1" stop-color="#8a0812" stop-opacity=".6"></stop></linearGradient>
+<radialGradient id="gCell" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ff8a90"></stop><stop offset=".5" stop-color="#c40d18"></stop><stop offset="1" stop-color="#3a020a"></stop></radialGradient>
+<symbol id="tick" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e3101c"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+<symbol id="crossB" viewBox="0 0 100 100"><path transform="translate(5,7)" d="M36 8H64Q70 8 70 14V30H86Q92 30 92 36V64Q92 70 86 70H70V86Q70 92 64 92H36Q30 92 30 86V70H14Q8 70 8 64V36Q8 30 14 30H30V14Q30 8 36 8Z" fill="#5a040c"></path><path d="M36 8H64Q70 8 70 14V30H86Q92 30 92 36V64Q92 70 86 70H70V86Q70 92 64 92H36Q30 92 30 86V70H14Q8 70 8 64V36Q8 30 14 30H30V14Q30 8 36 8Z" fill="url(#gCapR)"></path><path d="M36 12H62Q66 12 66 16V24H34V16Q34 12 36 12Z" fill="#ffffff" fill-opacity=".45"></path></symbol>
+<symbol id="capRW" viewBox="0 0 120 48"><path d="M24 4H60V44H24A20 20 0 0 1 24 4Z" fill="url(#gCapR)"></path><path d="M60 4H96A20 20 0 0 1 96 44H60Z" fill="url(#gCapW)"></path><rect x="14" y="10" width="92" height="7" rx="3.5" fill="#ffffff" fill-opacity=".6"></rect><path d="M60 4V44" stroke="#000000" stroke-opacity=".15" stroke-width="1.5"></path></symbol>
+<symbol id="capGR" viewBox="0 0 120 48"><path d="M24 4H60V44H24A20 20 0 0 1 24 4Z" fill="url(#gCapG)"></path><path d="M60 4H96A20 20 0 0 1 96 44H60Z" fill="url(#gCapR)"></path><rect x="14" y="10" width="92" height="7" rx="3.5" fill="#ffffff" fill-opacity=".55"></rect></symbol>
+<symbol id="pill" viewBox="0 0 60 60"><ellipse cx="30" cy="36" rx="26" ry="18" fill="#a99294"></ellipse><ellipse cx="30" cy="30" rx="26" ry="18" fill="url(#gCapW)"></ellipse><path d="M10 30H50" stroke="#c9b3b5" stroke-width="2.5"></path><ellipse cx="22" cy="22" rx="10" ry="4" fill="#ffffff" fill-opacity=".8"></ellipse></symbol>
+<symbol id="heart3" viewBox="0 0 100 92"><path transform="translate(4,6)" d="M50 86C22 64 4 48 4 28 4 14 15 4 28 4c9 0 17 5 22 13 5-8 13-13 22-13 13 0 24 10 24 24 0 20-18 36-46 58z" fill="#4a030a"></path><path d="M50 86C22 64 4 48 4 28 4 14 15 4 28 4c9 0 17 5 22 13 5-8 13-13 22-13 13 0 24 10 24 24 0 20-18 36-46 58z" fill="url(#gHeart)"></path><ellipse cx="28" cy="22" rx="12" ry="7" fill="#ffffff" fill-opacity=".45" transform="rotate(-25 28 22)"></ellipse><path d="M18 46H36L42 34L50 58L58 40L62 46H82" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+
+<symbol id="i-target" viewBox="0 0 24 24"><g class="ico"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.5"></circle></g></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><g class="ico"><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"></path></g></symbol>
+<symbol id="i-mega" viewBox="0 0 24 24"><g class="ico"><path d="M3 10v4h4l7 4V6L7 10H3z"></path><path d="M17.5 9a4 4 0 0 1 0 6M19.5 6.5a7.5 7.5 0 0 1 0 11"></path></g></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><g class="ico"><rect x="3" y="4" width="18" height="15" rx="2"></rect><path d="M3 16l5-5 4 4 3-3 6 6"></path><circle cx="15.5" cy="8.5" r="1.5"></circle></g></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><g class="ico"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2c2.8.3 5 2.6 5 5.8"></path></g></symbol>
+<symbol id="i-flow" viewBox="0 0 24 24"><g class="ico"><rect x="3" y="3" width="7" height="6" rx="1.5"></rect><rect x="14" y="15" width="7" height="6" rx="1.5"></rect><path d="M6.5 9v4a2 2 0 0 0 2 2H14"></path></g></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><g class="ico"><path d="M5 20V11M11 20V5M17 20v-6M3 20h18"></path></g></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><g class="ico"><path d="M4 17a8 8 0 1 1 16 0"></path><path d="M12 17l4-5"></path><circle cx="12" cy="17" r="1.5"></circle></g></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24"><g class="ico"><path d="M12 3c3.5 2 5 5.5 5 9l-2.5 4h-5L7 12c0-3.5 1.5-7 5-9z"></path><circle cx="12" cy="9.5" r="1.8"></circle><path d="M9.5 16l-2 4 3-1.5M14.5 16l2 4-3-1.5"></path></g></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><g class="ico"><path d="M4 9l1.5-5h13L20 9"></path><path d="M4 9h16v1.5a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0A2.7 2.7 0 0 1 4 10.5V9z"></path><path d="M5.5 12.5V20h13v-7.5M10 20v-4h4v4"></path></g></symbol>
+<symbol id="i-case" viewBox="0 0 24 24"><g class="ico"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5v2M3 12.5h18M11 12.5v2h2v-2"></path></g></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><g class="ico"><circle cx="8" cy="15" r="4"></circle><path d="M11 12l9-9M16.5 6.5l2.5 2.5M14 9l2 2"></path></g></symbol>
+<symbol id="i-headset" viewBox="0 0 24 24"><g class="ico"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><rect x="3" y="13" width="4" height="6" rx="1.5"></rect><rect x="17" y="13" width="4" height="6" rx="1.5"></rect><path d="M19 19c0 1.5-2 2.5-5 2.5"></path></g></symbol>
+<symbol id="i-factory" viewBox="0 0 24 24"><g class="ico"><path d="M3 21V11l5 3V11l5 3V11l5 3V5h3v16z"></path><path d="M7 18h2M12 18h2M17 18h1"></path></g></symbol>
+<symbol id="i-steth" viewBox="0 0 24 24"><g class="ico"><path d="M6 3v5a5 5 0 0 0 10 0V3"></path><path d="M11 13v2a5 5 0 0 0 10 0v-1"></path><circle cx="21" cy="12" r="2"></circle></g></symbol>
+<symbol id="i-clip" viewBox="0 0 24 24"><g class="ico"><rect x="5" y="4" width="14" height="17" rx="2"></rect><rect x="9" y="2.5" width="6" height="3.5" rx="1"></rect><path d="M9 11h6M9 15h4"></path></g></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><g class="ico"><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"></path></g></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><g class="ico"><path d="M2 12h5l2-5 4 10 2-5h7"></path></g></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><g class="ico"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3 10h18M8 14h3"></path></g></symbol>
+</defs>
+</svg>
+
+<div class="page">
+
+<!-- HEADER -->
+<header style="position: sticky; top: 0; z-index: 150; background: rgba(22,2,10,.74); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,140,145,.16)">
+<div class="wrap hbar" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; flex-wrap: wrap">
+<a href="#top" aria-label="ATOMIX Phòng khám Bác sĩ Marketing – về đầu trang" style="display: inline-flex; align-items: center; gap: 4px; text-decoration: none">
+<img src="/_blob/6d812ea5fb5d01df6f3f7e4e92da4dbb" alt="" class="logo-glow hlogo" style="height: 68px; width: auto; margin: -8px -6px -8px -16px">
+<span class="hbrand" style="display: flex; flex-direction: column; line-height: 1">
+<span style="font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: .06em; text-shadow: 0 0 18px rgba(255,70,80,.55)">ATOMIX</span>
+<span style="font-size: 11.5px; font-weight: 800; color: #ff9ea3; letter-spacing: .08em; margin-top: 4px">PHÒNG KHÁM MARKETING</span>
+</span>
+</a>
+<nav aria-label="Mục chính" class="hide-sm" style="display: flex; gap: 24px; font-size: 15px; font-weight: 700">
+<a href="#benh" style="color: #ffe0e2; text-decoration: none">Bệnh thường gặp</a>
+<a href="#tu-kham" style="color: #ffe0e2; text-decoration: none">Tự khám</a>
+<a href="#kham" style="color: #ffe0e2; text-decoration: none">Khám 8 hạng mục</a>
+<a href="#bang-gia" style="color: #ffe0e2; text-decoration: none">Bảng giá</a>
+</nav>
+<div style="display: flex; gap: 12px; align-items: center">
+<a class="btn btn-ghost hide-sm" href="tel:0785249867" style="min-height: 46px; font-size: 15px">0785.24.9867</a>
+<a class="btn btn-red" href="#dang-ky" style="min-height: 46px; font-size: 15px">Lấy số khám</a>
+</div>
+</div>
+</header>
+
+<!-- 1. HERO: bố cục chia đôi, minh họa bệnh án 3D -->
+<section style="padding: 0">
+<div class="wrap hero">
+<div style="display: flex; flex-direction: column; gap: 28px; align-items: flex-start">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Dịch vụ Bác sĩ Marketing</span>
+<h1>Doanh nghiệp của bạn đã từng đi khám marketing <span>lần nào chưa?</span></h1>
+<p class="lead">Bác sĩ Marketing Atomix khám tổng thể toàn bộ hoạt động marketing, chẩn đoán đúng chỗ đau, kê đơn sửa lỗi và lên lộ trình điều trị để doanh nghiệp khỏe lại.</p>
+<div style="display: flex; gap: 14px; flex-wrap: wrap">
+<a class="btn btn-red" href="#dang-ky" style="min-height: 58px; font-size: 17px; padding: 0 30px">Lấy số khám ngay</a>
+<a class="btn btn-ghost" href="#tu-kham" style="min-height: 58px; font-size: 17px; padding: 0 30px">Tự khám triệu chứng</a>
+</div>
+<div class="vitals">
+<div class="vital"><span class="vi"><svg class="ico" style="width: 22px; height: 22px" aria-hidden="true"><use href="#i-steth"></use></svg></span>Khám 8 hạng mục</div>
+<div class="vital"><span class="vi"><svg class="ico" style="width: 22px; height: 22px" aria-hidden="true"><use href="#i-clip"></use></svg></span>Kê đơn sửa lỗi</div>
+<div class="vital"><span class="vi"><svg class="ico" style="width: 22px; height: 22px" aria-hidden="true"><use href="#i-route"></use></svg></span>Lộ trình điều trị</div>
+</div>
+</div>
+<div class="hero-art zm">
+<svg class="hbg" viewBox="0 0 520 560" aria-hidden="true">
+<circle cx="260" cy="270" r="250" fill="url(#gGlow)"></circle>
+<circle class="spinS" cx="260" cy="270" r="226" fill="none" stroke="#ff6b72" stroke-opacity=".3" stroke-width="1.5" stroke-dasharray="4 10"></circle>
+<ellipse cx="260" cy="540" rx="170" ry="18" fill="#000000" fill-opacity=".45"></ellipse>
+<g class="bob2"><use href="#capGR" x="0" y="300" width="96" height="38" transform="rotate(-32 48 319)"></use></g>
+<g class="bob3"><use href="#pill" x="462" y="420" width="54" height="54"></use></g>
+<g class="bob"><use href="#capRW" x="420" y="40" width="96" height="38" transform="rotate(28 468 59)"></use></g>
+<g class="bob2"><use href="#crossB" x="6" y="60" width="64" height="64"></use></g>
+</svg>
+<img class="mascot float" src="/_blob/6592ed7fda1ecf7d96a951e4b57adbf9" alt="Bác sĩ Marketing Atomix với ống nghe, loa và bệnh án">
+</div>
+</div>
+</section>
+
+<!-- 2. THÓI QUEN XẤU: phim X-quang so sánh -->
+<section>
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div class="rv" style="display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 32px; align-items: end">
+<h2 class="h2" style="grid-column: 1 / -1; max-width: 980px">Người Việt thường chỉ đi khám khi đã đau. <em>Doanh nghiệp Việt cũng vậy.</em></h2>
+<p class="lead" style="grid-column: 1 / -1">Rất nhiều doanh nghiệp vận hành kém, chậm lớn, đốt tiền mỗi tháng nhưng chưa từng một lần khám tổng thể hay khám định kỳ hoạt động marketing. Thói quen xấu với sức khỏe cơ thể đã lây sang sức khỏe doanh nghiệp.</p>
+</div>
+<div class="lightbox rv2">
+<div class="film">
+<div class="hrow">
+<div class="hhead" style="color: #a9c8ea; text-align: right">Với sức khỏe cơ thể</div>
+<div></div>
+<div class="hhead" style="color: #ff6b72">Với sức khỏe doanh nghiệp</div>
+</div>
+<div class="hrow">
+<div class="hcell body">Chỉ vào viện khi đã đau không chịu nổi</div>
+<div class="hmid"><span class="hdot"><svg class="ico" style="width: 20px; height: 20px" aria-hidden="true"><use href="#i-pulse"></use></svg></span></div>
+<div class="hcell biz">Chỉ tìm cách sửa khi doanh số đã tụt sâu</div>
+</div>
+<div class="hrow">
+<div class="hcell body">Tự mua thuốc theo lời mách, theo quảng cáo</div>
+<div class="hmid"><span class="hdot"><svg class="ico" style="width: 20px; height: 20px" aria-hidden="true"><use href="#i-pulse"></use></svg></span></div>
+<div class="hcell biz">Thấy đối thủ làm gì làm theo, chạy theo trào lưu</div>
+</div>
+<div class="hrow">
+<div class="hcell body">Đau đầu thì uống thuốc giảm đau, không tìm nguyên nhân</div>
+<div class="hmid"><span class="hdot"><svg class="ico" style="width: 20px; height: 20px" aria-hidden="true"><use href="#i-pulse"></use></svg></span></div>
+<div class="hcell biz">Ít đơn thì tăng tiền quảng cáo, không tìm gốc rễ</div>
+</div>
+<div class="hrow">
+<div class="hcell body">Ngại khám tổng quát vì sợ tốn tiền, sợ biết bệnh</div>
+<div class="hmid"><span class="hdot"><svg class="ico" style="width: 20px; height: 20px" aria-hidden="true"><use href="#i-pulse"></use></svg></span></div>
+<div class="hcell biz">Ngại soi lại toàn bộ marketing vì sợ mất thời gian, sợ lộ lỗi</div>
+</div>
+<div class="hrow">
+<div class="hcell body">Đổi thầy đổi thuốc liên tục, không theo phác đồ nào</div>
+<div class="hmid"><span class="hdot"><svg class="ico" style="width: 20px; height: 20px" aria-hidden="true"><use href="#i-pulse"></use></svg></span></div>
+<div class="hcell biz">Đổi agency, đổi nhân sự liên tục, không theo kế hoạch nào</div>
+</div>
+</div>
+</div>
+<div class="closer rv">
+<svg viewBox="0 0 60 60" style="width: 60px; height: 60px" aria-hidden="true"><use href="#i-cal" style="color: #ffffff"></use></svg>
+<div style="font-size: clamp(18px,1.8vw,22px); font-weight: 800; color: #fff; line-height: 1.45">Cơ thể cần khám sức khỏe định kỳ. Marketing của doanh nghiệp cũng cần một lịch khám tổng thể định kỳ, trước khi bệnh nhẹ thành bệnh nặng.</div>
+<a class="btn btn-white" href="#dang-ky">Đặt lịch khám</a>
+</div>
+</div>
+</section>
+
+<!-- 2b. TỰ BỐC THUỐC -->
+<section>
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div class="selfmed">
+<div class="rv" style="display: flex; flex-direction: column; gap: 20px">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Tác hại của tự bốc thuốc</span>
+<h2 class="h2">Tự bốc thuốc: <em>tiền mất, bệnh vẫn còn.</em></h2>
+<p class="lead">Với sức khỏe hay với marketing, uống thuốc khi chưa biết mình bệnh gì đều để lại cùng một loại hậu quả.</p>
+</div>
+<div class="zm">
+<svg viewBox="0 0 360 300" style="display: block; width: 100%; max-width: 380px; margin: 0 auto; height: auto; overflow: visible" aria-hidden="true">
+<ellipse cx="180" cy="286" rx="140" ry="12" fill="#000000" fill-opacity=".45"></ellipse>
+<g transform="translate(70,40)">
+<g class="bottle-tilt">
+<rect x="34" y="0" width="72" height="34" rx="8" fill="url(#gCapR)"></rect>
+<rect x="34" y="6" width="72" height="5" fill="#ffffff" fill-opacity=".4"></rect>
+<rect x="44" y="30" width="52" height="16" rx="4" fill="#d9c2c4"></rect>
+<path d="M30 52 Q30 44 40 44 H100 Q110 44 110 52 L118 72 V230 Q118 244 104 244 H36 Q22 244 22 230 V72 Z" fill="url(#gGlass)" stroke="#ffd0d3" stroke-opacity=".7" stroke-width="2"></path>
+<rect x="30" y="110" width="80" height="80" rx="8" fill="#ffffff"></rect>
+<text x="70" y="160" text-anchor="middle" font-size="46" font-weight="900" fill="#c40d18">?</text>
+<rect x="38" y="80" width="10" height="140" rx="5" fill="#ffffff" fill-opacity=".55"></rect>
+</g>
+</g>
+<g class="spill" style="--sx: -60px"><use href="#capRW" x="80" y="40" width="58" height="23"></use></g>
+<g class="spill spill2" style="--sx: -110px"><use href="#pill" x="86" y="44" width="28" height="28"></use></g>
+<g class="spill spill3" style="--sx: -30px"><use href="#capGR" x="84" y="42" width="54" height="21"></use></g>
+<g class="spill spill4" style="--sx: -140px"><use href="#capRW" x="80" y="40" width="48" height="19"></use></g>
+<use href="#pill" x="40" y="250" width="34" height="34"></use>
+<use href="#capRW" x="90" y="262" width="62" height="25" transform="rotate(12 121 274)"></use>
+<use href="#capGR" x="250" y="258" width="60" height="24" transform="rotate(-16 280 270)"></use>
+</svg>
+</div>
+</div>
+<div class="caps rv2">
+<div class="caphead"><span style="color: #ffffff">Tự bốc thuốc sức khỏe</span><span style="color: #ff6b72; padding-left: 70px">Tự bốc thuốc marketing</span></div>
+<div class="caprow"><div class="cl">Uống thuốc theo đơn của người khác, bệnh khác mà tưởng giống</div><span class="cseam">Sai thuốc</span><div class="cr">Sao chép cách làm của đối thủ, của khóa học, dù doanh nghiệp khác hẳn</div></div>
+<div class="caprow"><div class="cl">Thuốc giảm đau làm hết đau, bệnh gốc vẫn âm thầm nặng thêm</div><span class="cseam">Che triệu chứng</span><div class="cr">Đổ thêm tiền quảng cáo kéo doanh số tạm thời, lỗi gốc vẫn nằm đó</div></div>
+<div class="caprow"><div class="cl">Lạm dụng kháng sinh, đến khi bệnh thật thì thuốc hết tác dụng</div><span class="cseam">Nhờn thuốc</span><div class="cr">Khuyến mãi liên tục, khách quen chờ giảm giá, không mua giá gốc nữa</div></div>
+<div class="caprow"><div class="cl">Hại gan, hại thận, tốn tiền mà bệnh không khỏi</div><span class="cseam">Tác dụng phụ</span><div class="cr">Thương hiệu rẻ đi, đội ngũ kiệt sức, ngân sách cạn mà doanh số không lên</div></div>
+<div class="caprow"><div class="cl">Để quá lâu, bệnh nhẹ thành bệnh nặng, khó chữa</div><span class="cseam">Lỡ thời gian vàng</span><div class="cr">Lỡ thời điểm của thị trường, đối thủ đã chiếm chỗ</div></div>
+</div>
+<div class="closer rv">
+<img class="avatar" src="/_blob/16f517d615973e760771eceadab6c791" alt="" style="width: 72px; height: 72px">
+<div style="font-size: clamp(18px,1.8vw,22px); font-weight: 800; color: #fff; line-height: 1.45">Muốn bốc đúng thuốc, phải bắt đúng bệnh. Muốn bắt đúng bệnh, phải khám.</div>
+<a class="btn btn-white" href="#tu-kham">Tự khám ngay</a>
+</div>
+</div>
+</section>
+
+<!-- 3. TẢNG BĂNG: triệu chứng nổi, bệnh chìm -->
+<section style="padding-top: 40px">
+<div class="wrap iceb">
+<div class="zm">
+<svg viewBox="0 0 440 400" style="display: block; width: 100%; height: auto" aria-hidden="true">
+<rect x="0" y="120" width="440" height="280" rx="24" fill="url(#gWater)"></rect>
+<path d="M0 120 Q55 108 110 120 T220 120 T330 120 T440 120" fill="none" stroke="#ff9ea3" stroke-width="2.5" stroke-opacity=".7"></path>
+<g class="bob">
+<path d="M150 120 L196 38 L222 64 L246 20 L292 120 Z" fill="url(#gIceTop)"></path>
+<path d="M246 20 L292 120 L262 120 L240 60 Z" fill="#d9b5b9"></path>
+<path d="M150 120 L292 120 L350 196 L326 300 L246 368 L150 340 L92 250 L106 170 Z" fill="url(#gIceDeep)" stroke="#ff6b72" stroke-opacity=".5" stroke-width="1.5"></path>
+<path d="M150 120 L200 220 L246 368 M292 120 L240 230 L92 250 M200 220 L326 300" fill="none" stroke="#ffd0d3" stroke-opacity=".22" stroke-width="1.5"></path>
+</g>
+<text x="20" y="60" font-size="13" font-weight="900" fill="#ffffff" letter-spacing="2">TRIỆU CHỨNG</text>
+<text x="20" y="380" font-size="13" font-weight="900" fill="#ff9ea3" letter-spacing="2">NGUYÊN NHÂN GỐC</text>
+</svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 22px">
+<h2 class="h2">Thứ bạn thấy chỉ là phần nổi. <em>Bệnh nằm ở phần chìm.</em></h2>
+<div class="ilist">
+<div class="ilabel" style="color: #ffffff">Phần nổi: điều chủ doanh nghiệp nhìn thấy</div>
+<div class="ipill top"><svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>Doanh số chững lại, tăng trưởng chậm</div>
+<div class="ipill top"><svg class="ico" aria-hidden="true"><use href="#i-mega"></use></svg>Chi phí quảng cáo ngày càng đắt</div>
+<div class="ipill top"><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg>Nhân sự marketing thay liên tục</div>
+</div>
+<div class="ilist">
+<div class="ilabel" style="color: #ff9ea3">Phần chìm: điều chỉ khám tổng thể mới thấy</div>
+<div class="ipill deep"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg>Định vị, giá, sản phẩm lệch với khách hàng</div>
+<div class="ipill deep"><svg class="ico" aria-hidden="true"><use href="#i-share"></use></svg>Các kênh chạy rời rạc, không hỗ trợ nhau</div>
+<div class="ipill deep"><svg class="ico" aria-hidden="true"><use href="#i-gauge"></use></svg>Không có hệ thống báo cáo và KPI đúng</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 3b. KHỐI U -->
+<section class="tumor">
+<div class="wrap" style="display: flex; flex-direction: column; align-items: center; gap: 34px; text-align: center">
+<div class="tq">Có những bệnh doanh nghiệp giống khối u</div>
+<h2 style="margin: 0"><span class="big1">Không đau</span><span class="big2">chưa chắc đã khỏe.</span></h2>
+<p class="lead" style="max-width: 720px">Lỗi trong marketing âm thầm lan sang bán hàng, nhân sự, tài chính, sản phẩm. Phát hiện sớm thì xử lý nhẹ. Đến khi thấy đau, bệnh đã lan khắp doanh nghiệp.</p>
+<svg viewBox="0 0 640 380" style="display: block; width: 100%; max-width: 760px; height: auto; overflow: visible" aria-hidden="true">
+<g fill="none" stroke="#ff3b45" stroke-width="3" stroke-linecap="round">
+<path class="vein" d="M320 190 C250 160 200 110 120 80" style="animation-delay: .4s"></path>
+<path class="vein" d="M320 190 C390 160 440 110 520 80" style="animation-delay: .9s"></path>
+<path class="vein" d="M320 190 C250 230 180 270 100 300" style="animation-delay: 1.4s"></path>
+<path class="vein" d="M320 190 C390 230 460 270 540 300" style="animation-delay: 1.9s"></path>
+<path class="vein" d="M320 190 C318 250 322 300 320 345" style="animation-delay: 2.4s"></path>
+</g>
+<g stroke-width="2.5">
+<circle class="organ" cx="120" cy="80" r="40" style="animation-delay: .9s"></circle>
+<circle class="organ" cx="520" cy="80" r="40" style="animation-delay: 1.4s"></circle>
+<circle class="organ" cx="100" cy="300" r="40" style="animation-delay: 1.9s"></circle>
+<circle class="organ" cx="540" cy="300" r="40" style="animation-delay: 2.4s"></circle>
+<circle class="organ" cx="320" cy="345" r="34" style="animation-delay: 2.9s"></circle>
+</g>
+<g font-size="14" font-weight="800" fill="#ffffff" text-anchor="middle">
+<text x="120" y="85">Bán hàng</text><text x="520" y="85">Nhân sự</text><text x="100" y="305">Tài chính</text><text x="540" y="305">Sản phẩm</text><text x="320" y="350">CSKH</text>
+</g>
+<g class="core">
+<circle cx="320" cy="190" r="62" fill="#ff3b45" fill-opacity=".18"></circle>
+<circle cx="296" cy="160" r="20" fill="url(#gCell)"></circle>
+<circle cx="350" cy="170" r="16" fill="url(#gCell)"></circle>
+<circle cx="344" cy="222" r="18" fill="url(#gCell)"></circle>
+<circle cx="292" cy="218" r="15" fill="url(#gCell)"></circle>
+<circle cx="320" cy="190" r="40" fill="url(#gCell)"></circle>
+<ellipse cx="306" cy="174" rx="14" ry="8" fill="#ffffff" fill-opacity=".45"></ellipse>
+<text x="320" y="196" text-anchor="middle" font-size="14" font-weight="900" fill="#ffffff">Marketing</text>
+</g>
+</svg>
+<a class="btn btn-red" href="#dang-ky" style="min-height: 58px; font-size: 17px; padding: 0 32px">Khám khi còn chưa đau</a>
+</div>
+</section>
+
+<!-- 4. BỆNH THEO NHÓM: sổ bệnh án có tab -->
+<section id="benh">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 36px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px; max-width: 900px">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Tra cứu bệnh thường gặp</span>
+<h2 class="h2">Mỗi nhóm doanh nghiệp <em>một kiểu bệnh.</em></h2>
+<p class="lead">Chọn nhóm giống doanh nghiệp của bạn để xem những triệu chứng thường gặp nhất.</p>
+</div>
+<div class="chart rv2">
+<div class="tabs" role="group" aria-label="Nhóm doanh nghiệp">
+<sc-for list="{{ groups }}" as="item" hint-placeholder-count="7">
+<button type="button" class="tabbtn {{ item.cls }}" aria-pressed="{{ item.pressed }}" onClick="{{ item.pick }}"><span class="tile"><svg class="ico" style="width: 22px; height: 22px" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span><span>{{ item.name }}</span></button>
+</sc-for>
+</div>
+<div class="record" aria-live="polite">
+<div class="rhead">
+<span class="rtitle">Sổ bệnh án marketing</span>
+<span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #7a4a50"><svg viewBox="0 0 100 100" style="width: 22px; height: 22px" aria-hidden="true"><use href="#crossB"></use></svg>Phòng khám Atomix</span>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 4px; margin-top: 8px">
+<div class="rfield"><b>Bệnh nhân</b><span class="rname">{{ g.name }}</span></div>
+<div class="rfield"><b>Hồ sơ</b><span>{{ g.who }}</span></div>
+</div>
+<div style="position: relative; margin-top: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #7a4a50">Triệu chứng thường gặp</div>
+<ul class="sym">
+<sc-for list="{{ g.sym }}" as="s" hint-placeholder-count="4">
+<li><svg aria-hidden="true"><use href="#tick"></use></svg><span>{{ s }}</span></li>
+</sc-for>
+</ul>
+</div>
+<div class="dxrow">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #7a4a50">Chẩn đoán sơ bộ</div>
+<div class="dx">{{ g.dx }}</div>
+</div>
+<a class="btn btn-ink" href="#dang-ky" onClick="{{ bookGroup }}">Khám cho nhóm này</a>
+</div>
+<div class="stamp">Cần khám<br>tổng thể</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 4b. TỰ KHÁM TRIỆU CHỨNG -->
+<section id="tu-kham">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 36px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px; max-width: 900px">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Tự khám triệu chứng</span>
+<h2 class="h2">Tự bắt mạch cho marketing <em>của chính doanh nghiệp bạn.</em></h2>
+<p class="lead">Chọn nhóm doanh nghiệp, tích những triệu chứng bạn đang gặp và ghi thêm nếu có. Bác sĩ Marketing sẽ cho bạn biết sức khỏe marketing và bán hàng đang ở mức nào.</p>
+</div>
+<div class="selfx">
+<div style="display: flex; flex-direction: column; gap: 30px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="stepn"><i>1</i>Doanh nghiệp của bạn thuộc nhóm nào?</div>
+<div class="gtiles" role="group" aria-label="Chọn nhóm doanh nghiệp">
+<sc-for list="{{ tgroups }}" as="item" hint-placeholder-count="7">
+<button type="button" class="gtile {{ item.cls }}" aria-pressed="{{ item.pressed }}" onClick="{{ item.pick }}"><span class="tile"><svg class="ico" style="width: 26px; height: 26px" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span><span>{{ item.name }}</span></button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="stepn"><i>2</i>Tích những triệu chứng doanh nghiệp đang gặp</div>
+<div class="symgrid">
+<sc-for list="{{ tsym }}" as="item" hint-placeholder-count="8">
+<label class="sbox {{ item.cls }}"><input type="checkbox" checked="{{ item.checked }}" onChange="{{ item.toggle }}"><span>{{ item.t }}<span class="stag {{ item.a }}">{{ item.al }}</span></span></label>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<label class="stepn" for="t-other"><i>3</i>Triệu chứng khác bạn muốn kể thêm (không bắt buộc)</label>
+<textarea class="fd" id="t-other" placeholder="Ví dụ: chạy quảng cáo 3 tháng nay nhưng tin nhắn hỏi giá rồi im lặng…" value="{{ other }}" onChange="{{ setOther }}"></textarea>
+</div>
+<sc-if value="{{ hasTerr }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="font-size: 15px; color: #ffb3b8; font-weight: 700">{{ terr }}</div>
+</sc-if>
+<div><button type="button" class="btn btn-red" onClick="{{ diagnose }}" style="min-height: 60px; font-size: 18px; padding: 0 36px">Nhận chẩn đoán triệu chứng</button></div>
+</div>
+<aside class="thermo" aria-label="Nhiệt kế marketing">
+<div class="bubble">Tích thật lòng nhé, bác sĩ đang đo!</div>
+<img class="avatar" src="/_blob/16f517d615973e760771eceadab6c791" alt="" style="width: 92px; height: 92px">
+<div class="vsmall" style="color: #ff9ea3">Nhiệt kế marketing</div>
+<div class="tube"><div class="tfill {{ t.cls }}" style="height: {{ t.pct }}%"></div></div>
+<div class="bulb" aria-hidden="true"></div>
+<div class="tcount">{{ t.count }}</div>
+<div class="tlvl">{{ t.text }}</div>
+</aside>
+</div>
+</div>
+</section>
+
+<!-- 5. DỊCH VỤ: đơn thuốc -->
+<section>
+<div class="wrap rxwrap">
+<div class="rv" style="display: flex; flex-direction: column; gap: 22px">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Một lần khám, ba việc</span>
+<h2 class="h2">Không chỉ chỉ ra chỗ đau. <em>Còn kê đơn đến khi khỏe.</em></h2>
+<p class="lead">Mỗi lần khám kết thúc bằng một đơn thuốc rõ ràng: sai ở đâu, sửa thế nào và giải pháp nào vừa sức doanh nghiệp.</p>
+<svg viewBox="0 0 320 120" style="width: 320px; max-width: 100%; height: auto" aria-hidden="true">
+<g class="bob"><use href="#capRW" x="10" y="20" width="140" height="56" transform="rotate(-14 80 48)"></use></g>
+<g class="bob3"><use href="#pill" x="160" y="40" width="64" height="64"></use></g>
+<g class="bob2"><use href="#capGR" x="220" y="10" width="96" height="38" transform="rotate(22 268 29)"></use></g>
+</svg>
+</div>
+<div class="rxpaper rv2">
+<div class="rxtop">
+<div>
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .14em; color: #c40d18">ĐƠN THUỐC MARKETING</div>
+<div style="font-size: 15px; font-weight: 700; color: #7a4a50; margin-top: 6px">Phòng khám Bác sĩ Marketing Atomix</div>
+</div>
+<div class="rxR">Rx</div>
+</div>
+<div class="med"><svg viewBox="0 0 120 48" aria-hidden="true"><use href="#capRW"></use></svg><div><div class="mname">1. Khám lỗi toàn bộ hoạt động marketing</div><div class="muse"><b>Cách dùng:</b> soi đủ 8 hạng mục, từ chiến lược đến KPI.</div></div></div>
+<div class="med"><svg viewBox="0 0 120 48" aria-hidden="true"><use href="#capGR"></use></svg><div><div class="mname">2. Lên phương án và kế hoạch chỉnh sửa</div><div class="muse"><b>Cách dùng:</b> mỗi lỗi đi kèm cách sửa, xếp theo mức độ ưu tiên.</div></div></div>
+<div class="med" style="border-bottom: 0"><svg viewBox="0 0 60 60" aria-hidden="true" style="width: 52px; justify-self: center"><use href="#pill"></use></svg><div><div class="mname">3. Tư vấn giải pháp tối ưu marketing</div><div class="muse"><b>Cách dùng:</b> chọn giải pháp vừa với nguồn lực và giai đoạn doanh nghiệp.</div></div></div>
+<div class="sign">
+<svg viewBox="0 0 110 110" style="width: 96px; height: 96px; transform: rotate(-14deg)" aria-hidden="true"><circle cx="55" cy="55" r="50" fill="none" stroke="#c40d18" stroke-width="3" stroke-opacity=".8"></circle><circle cx="55" cy="55" r="40" fill="none" stroke="#c40d18" stroke-width="1.5" stroke-opacity=".8"></circle><text x="55" y="50" text-anchor="middle" font-size="13" font-weight="900" fill="#c40d18" fill-opacity=".85">ATOMIX</text><text x="55" y="68" text-anchor="middle" font-size="8.5" font-weight="800" fill="#c40d18" fill-opacity=".85">ĐÃ KHÁM</text></svg>
+<div style="text-align: right">
+<div style="font-size: 13px; font-weight: 700; color: #7a4a50">Bác sĩ điều trị</div>
+<div class="sig">Bác sĩ Marketing Atomix</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 6. KHÁM 8 HẠNG MỤC: máy quét nguyên tử -->
+<section id="kham">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 40px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px; align-items: center; text-align: center">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Quy trình khám bệnh marketing</span>
+<h2 class="h2" style="max-width: 920px">Quét tám hạng mục quanh <em>hạt nhân doanh nghiệp.</em></h2>
+<p class="lead">Chạm vào từng điểm trên vòng quét để xem bác sĩ kiểm tra những gì.</p>
+</div>
+<div class="scanwrap">
+<div class="orbit" role="group" aria-label="Tám hạng mục khám">
+<svg viewBox="0 0 100 100" aria-hidden="true">
+<circle cx="50" cy="50" r="49" fill="url(#gGlow)"></circle>
+<g class="spinS"><circle cx="50" cy="50" r="42" fill="none" stroke="#ff6b72" stroke-opacity=".45" stroke-width=".4" stroke-dasharray="1.2 2"></circle></g>
+<g class="spinR"><ellipse cx="50" cy="50" rx="30" ry="12" fill="none" stroke="#ff9ea3" stroke-opacity=".35" stroke-width=".35" transform="rotate(35 50 50)"></ellipse><ellipse cx="50" cy="50" rx="30" ry="12" fill="none" stroke="#ff9ea3" stroke-opacity=".35" stroke-width=".35" transform="rotate(-35 50 50)"></ellipse></g>
+<g class="sweep"><path d="M50 50 L50 7 A43 43 0 0 1 80.4 19.6 Z" fill="#ff3b45" fill-opacity=".14"></path><line x1="50" y1="50" x2="50" y2="7" stroke="#ff3b45" stroke-width=".5"></line></g>
+</svg>
+<div class="nucleus"><img src="/_blob/6d812ea5fb5d01df6f3f7e4e92da4dbb" alt=""></div>
+<sc-for list="{{ khoa }}" as="item" hint-placeholder-count="8">
+<button type="button" class="onode {{ item.cls }}" style="left: {{ item.x }}%; top: {{ item.y }}%" aria-pressed="{{ item.pressed }}" onClick="{{ item.pick }}"><span class="ob"><svg class="ico" style="width: 24px; height: 24px" aria-hidden="true"><use href="#{{ item.icon }}"></use></svg></span><span class="ol">{{ item.short }}</span></button>
+</sc-for>
+</div>
+<div class="kpanel" aria-live="polite">
+<div class="ktag"><span>{{ cur.label }}</span><span class="kbar"><i style="width: {{ cur.pct }}%"></i></span></div>
+<h3 class="ktitle">{{ cur.title }}</h3>
+<p class="ksub">{{ cur.sub }}</p>
+<ul class="checks">
+<sc-for list="{{ cur.checks }}" as="c" hint-placeholder-count="4">
+<li><svg aria-hidden="true"><use href="#tick"></use></svg><span>{{ c }}</span></li>
+</sc-for>
+</ul>
+<div class="knav">
+<button type="button" class="btn btn-ghost" onClick="{{ prevK }}" style="min-height: 46px; font-size: 15px">Hạng mục trước</button>
+<button type="button" class="btn btn-red" onClick="{{ nextK }}" style="min-height: 46px; font-size: 15px">Hạng mục tiếp theo</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 7. BẢNG GIÁ: phiếu chỉ định dạng hàng ngang -->
+<section id="bang-gia">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 36px">
+<div class="rv" style="display: flex; flex-direction: column; gap: 18px; max-width: 860px">
+<span class="tagx"><svg aria-hidden="true"><use href="#crossB"></use></svg>Bảng giá dịch vụ</span>
+<h2 class="h2">Bệnh nhẹ uống thuốc. <em>Bệnh gốc phải điều trị tận gốc.</em></h2>
+<p class="lead">Chọn gói theo nhu cầu và thực trạng hoạt động marketing hiện tại của doanh nghiệp.</p>
+</div>
+<div class="plans">
+<div class="plan">
+<div><div class="pno">Gói 1</div><h3 class="pname">Gói Tối ưu</h3><p class="pfor">Khi cần tìm nhanh lỗi đang làm marketing kém hiệu quả.</p></div>
+<ul class="plist">
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Khám lỗi hoạt động marketing</li>
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Cung cấp giải pháp sửa lỗi và tối ưu hoạt động</li>
+</ul>
+<div class="pprice"><div class="pnow">2.000.000đ</div><a class="btn btn-ghost" href="#dang-ky" onClick="{{ pick1 }}">Chọn gói Tối ưu</a></div>
+</div>
+<div class="plan">
+<div><div class="pno">Gói 2</div><h3 class="pname">Gói Chuyên nghiệp</h3><p class="pfor">Khi cần bác sĩ ngồi cùng, giải thích và tư vấn trực tiếp.</p></div>
+<ul class="plist">
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Khám lỗi hoạt động marketing</li>
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Cung cấp giải pháp sửa lỗi và tối ưu hoạt động</li>
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Tư vấn online 60 phút</li>
+</ul>
+<div class="pprice"><div class="pnow">5.000.000đ</div><a class="btn btn-ghost" href="#dang-ky" onClick="{{ pick2 }}">Chọn gói Chuyên nghiệp</a></div>
+</div>
+<div class="plan hot">
+<span class="badge">Điều trị tận gốc</span>
+<div><div class="pno" style="color: #ffd0d3">Gói 3 – Gói điều trị</div><h3 class="pname">Lập kế hoạch chiến lược marketing tổng thể</h3><p class="pfor" style="color: #ffd0d3">Xây nền móng theo triết lý Marketing Nguyên Tử: Đất, Nước, Lửa, Gió.</p></div>
+<ul class="plist">
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Định vị thương hiệu và phân khúc khách hàng</li>
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Chiến lược riêng cho từng phân khúc</li>
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Kế hoạch hành động chi tiết</li>
+<li><svg aria-hidden="true"><use href="#tick"></use></svg>Phân bổ ngân sách theo giai đoạn và phân khúc</li>
+</ul>
+<div class="pprice"><div class="pnow">1.000 USD</div><a class="btn btn-white" href="#dang-ky" onClick="{{ pick3 }}">Chọn Gói điều trị</a></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 8. ƯU ĐÃI KHẤU TRỪ -->
+<section style="padding-top: 20px">
+<div class="wrap">
+<div class="voucher rv">
+<div class="vleft"><div class="vsmall">Khấu trừ</div><div class="vbig">100%</div><div class="vsmall">giá trị gói khám</div></div>
+<p class="vtext">Khấu trừ 100% giá trị gói khám nếu sử dụng “Gói điều trị” – Lập kế hoạch chiến lược marketing tổng thể</p>
+</div>
+</div>
+</section>
+
+<!-- 9. ĐĂNG KÝ: phiếu đăng ký khám -->
+<section id="dang-ky">
+<div class="wrap book">
+<div class="rv" style="display: flex; flex-direction: column; gap: 22px">
+<h2 class="h2">Khám sớm, <em>chữa nhẹ.</em></h2>
+<p class="lead">Điền phiếu đăng ký, Bác sĩ Marketing Atomix sẽ gọi lại để xếp lịch khám cho doanh nghiệp của bạn.</p>
+<img class="mascot float" src="/_blob/6592ed7fda1ecf7d96a951e4b57adbf9" alt="Bác sĩ Marketing Atomix giơ ngón cái" style="width: 340px; max-width: 80%; margin: 0">
+<div style="display: flex; gap: 10px; flex-wrap: wrap; font-size: 15px; color: #e8b9bc"><span>Cần gấp? Gọi ngay</span><a href="tel:0785249867" style="font-weight: 800">0785.24.9867</a><span>hoặc</span><a href="https://zalo.me/0785249867" target="_blank" rel="noopener" style="font-weight: 800">chat Zalo</a></div>
+</div>
+<sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+<div class="form rv2">
+<div class="ftop"><span class="rtitle">Phiếu đăng ký khám</span><span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #7a4a50"><svg viewBox="0 0 100 100" style="width: 22px; height: 22px" aria-hidden="true"><use href="#crossB"></use></svg>Phòng khám Atomix</span></div>
+<div class="fgrid">
+<label class="fl" for="f-name">Họ và tên
+<input class="fi" id="f-name" type="text" autocomplete="name" value="{{ f.name }}" onChange="{{ setName }}">
+</label>
+<label class="fl" for="f-phone">Số điện thoại / Zalo
+<input class="fi" id="f-phone" type="tel" autocomplete="tel" value="{{ f.phone }}" onChange="{{ setPhone }}">
+</label>
+<label class="fl" for="f-group">Nhóm doanh nghiệp
+<select class="fi" id="f-group" value="{{ f.group }}" onChange="{{ setGroup }}">
+<sc-for list="{{ groupNames }}" as="n" hint-placeholder-count="8"><option value="{{ n }}">{{ n }}</option></sc-for>
+</select>
+</label>
+<label class="fl" for="f-pkg">Gói quan tâm
+<select class="fi" id="f-pkg" value="{{ f.pkg }}" onChange="{{ setPkg }}">
+<option value="Gói Tối ưu – 2.000.000đ">Gói Tối ưu – 2.000.000đ</option>
+<option value="Gói Chuyên nghiệp – 5.000.000đ">Gói Chuyên nghiệp – 5.000.000đ</option>
+<option value="Gói điều trị: Lập kế hoạch chiến lược marketing tổng thể – 1.000 USD">Gói điều trị – 1.000 USD</option>
+<option value="Chưa chắc, cần tư vấn">Chưa chắc, cần tư vấn</option>
+</select>
+</label>
+</div>
+<label class="fl" for="f-note">Triệu chứng bạn đang gặp (không bắt buộc)
+<textarea class="fi" id="f-note" value="{{ f.note }}" onChange="{{ setNote }}"></textarea>
+</label>
+<sc-if value="{{ hasErr }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="font-size: 14px; color: #b30c16; font-weight: 700">{{ err }}</div>
+</sc-if>
+<button class="btn btn-red" type="button" onClick="{{ submit }}" style="width: 100%; min-height: 56px; font-size: 17px">{{ sendLabel }}</button>
+</div>
+</sc-if>
+<sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+<div class="form" style="align-items: center; text-align: center; gap: 16px">
+<svg viewBox="0 0 100 92" style="width: 90px; height: auto" aria-hidden="true"><g class="beat"><use href="#heart3"></use></g></svg>
+<div style="font-size: 24px; font-weight: 900; color: #2a0510">Đã nhận phiếu đăng ký khám.</div>
+<div style="font-size: 16px; color: #6b3b41; line-height: 1.6">Bác sĩ Marketing Atomix sẽ gọi lại để xếp lịch khám trong thời gian sớm nhất.</div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top: 1px solid rgba(255,140,145,.16); padding: 40px 0 48px">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between">
+<a href="#top" aria-label="ATOMIX – về đầu trang" style="display: inline-flex; align-items: center; gap: 4px; text-decoration: none">
+<img src="/_blob/6d812ea5fb5d01df6f3f7e4e92da4dbb" alt="" class="logo-glow" style="height: 60px; width: auto; margin: -8px -6px -8px -14px">
+<span style="font-size: 22px; font-weight: 900; color: #fff; letter-spacing: .06em">ATOMIX</span>
+</a>
+<div style="display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; color: #e8b9bc">
+<span>Phòng khám Bác sĩ Marketing · Marketing Nguyên Tử</span>
+<a href="tel:0785249867" style="font-weight: 700">Hotline / Zalo: 0785.24.9867</a>
+</div>
+</div>
+</footer>
+
+<!-- POPUP KẾT QUẢ -->
+<sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+<div class="modal">
+<div class="mcard" role="dialog" aria-modal="true" aria-labelledby="m-title">
+<button type="button" class="mx" aria-label="Đóng kết quả" onClick="{{ closeM }}"><svg viewBox="0 0 24 24" style="width: 20px; height: 20px" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg></button>
+<div style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #c40d18"><img class="avatar" src="/_blob/16f517d615973e760771eceadab6c791" alt="" style="width: 56px; height: 56px">Kết quả chẩn đoán sơ bộ từ Bác sĩ Marketing</div>
+<div class="mtop">
+<svg viewBox="0 0 200 120" style="width: 100%; height: auto" aria-hidden="true">
+<path d="M20 100 A80 80 0 0 1 60 30.7" fill="none" stroke="#f5b82e" stroke-width="18"></path>
+<path d="M62 29.6 A80 80 0 0 1 138 29.6" fill="none" stroke="#ff8a3d" stroke-width="18"></path>
+<path d="M140 30.7 A80 80 0 0 1 180 100" fill="none" stroke="#e3101c" stroke-width="18"></path>
+<g class="needle" style="transform: rotate({{ r.deg }}deg)"><path d="M100 100 L96 100 L100 30 L104 100 Z" fill="#2a0510"></path></g>
+<circle cx="100" cy="100" r="10" fill="#2a0510"></circle>
+<text x="20" y="118" font-size="10" font-weight="800" fill="#7a4a50">Nhẹ</text>
+<text x="180" y="118" text-anchor="end" font-size="10" font-weight="800" fill="#7a4a50">Nặng</text>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<span class="lvbadge {{ r.cls }}">Mức độ: {{ r.lvl }}</span>
+<h3 class="mhead" id="m-title">{{ r.head }}</h3>
+</div>
+</div>
+<p class="mmsg">{{ r.msg }}</p>
+<div class="mstats">
+<div class="mstat"><b>{{ r.mk }}</b><span>triệu chứng về marketing</span></div>
+<div class="mstat"><b>{{ r.sl }}</b><span>triệu chứng về bán hàng</span></div>
+</div>
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #7a4a50">Nhóm {{ r.group }}: triệu chứng bạn đã tích</div>
+<ul class="mlist">
+<sc-for list="{{ r.list }}" as="c" hint-placeholder-count="3">
+<li><svg aria-hidden="true"><use href="#tick"></use></svg><span>{{ c }}</span></li>
+</sc-for>
+</ul>
+<sc-if value="{{ r.hasOther }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 15px; line-height: 1.5; color: #5a2a31"><b>Bạn kể thêm:</b> {{ r.other }}</div>
+</sc-if>
+<div class="mrx"><b>Chỉ định:</b> {{ r.rx }}</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<a class="btn btn-red" href="#dang-ky" onClick="{{ bookFromTest }}">Đặt lịch khám ngay</a>
+<button type="button" class="btn btn-ink" onClick="{{ retake }}">Tích lại triệu chứng</button>
+</div>
+<div style="font-size: 13px; color: #7a4a50; line-height: 1.5">Kết quả tự khám chỉ mang tính tham khảo. Chẩn đoán chính xác cần Bác sĩ Marketing khám tổng thể.</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"sheetEndpoint":{"editor":"text","default":"","section":"Kết nối Google Sheet","label":"Link Google Apps Script nhận form"},"$preview":{"width":1440,"height":8000}}'>
+const GROUPS = [
+  { name: 'Khởi nghiệp', icon: 'i-rocket', who: 'Mới ra sản phẩm, ngân sách và nhân sự còn mỏng.', dx: 'Thiếu nền móng chiến lược ngay từ đầu.', sym: [
+    ['Chưa rõ khách hàng mục tiêu là ai', 'mkt'], ['Rải ngân sách mỏng ra quá nhiều kênh cùng lúc', 'mkt'], ['Định giá theo cảm tính hoặc theo đối thủ', 'mkt'], ['Bán được vài đơn đầu rồi chững lại', 'sale'],
+    ['Chưa có thông điệp khác biệt so với đối thủ', 'mkt'], ['Khách hỏi nhiều nhưng ít chốt được đơn', 'sale'], ['Chủ yếu bán cho người quen, bạn bè', 'sale'], ['Không biết mỗi khách hàng mới tốn bao nhiêu tiền', 'mkt'] ] },
+  { name: 'SME', icon: 'i-store', who: 'Đã có doanh thu, chủ doanh nghiệp kiêm luôn việc marketing.', dx: 'Marketing chạy theo cảm hứng, thiếu hệ thống.', sym: [
+    ['Chủ doanh nghiệp ôm hết việc marketing', 'mkt'], ['Chạy quảng cáo theo mùa, không đo được hiệu quả', 'mkt'], ['Content làm cho có, thiếu định hướng', 'mkt'], ['Không có kế hoạch năm, làm đến đâu tính đến đó', 'mkt'],
+    ['Doanh số lên xuống thất thường theo tháng', 'sale'], ['Không tận dụng dữ liệu khách cũ để bán lại', 'sale'], ['Nhân viên bán hàng tư vấn mỗi người một kiểu', 'sale'], ['Khách so giá rồi bỏ sang đối thủ', 'sale'] ] },
+  { name: 'Đã có team marketing', icon: 'i-users', who: 'Có phòng hoặc nhóm marketing nội bộ.', dx: 'Lệch mục tiêu và thiếu thước đo đúng.', sym: [
+    ['Team rất bận nhưng doanh số không tăng tương xứng', 'mkt'], ['KPI đo lượt thích, lượt xem thay vì khách hàng và doanh thu', 'mkt'], ['Báo cáo dài nhưng không giúp ra quyết định', 'mkt'], ['Các vị trí làm rời rạc, thiếu quy trình phối hợp', 'mkt'],
+    ['Marketing và sales đổ lỗi cho nhau về chất lượng khách', 'sale'], ['Khách tiềm năng chuyển sang sales nhưng không được chăm tiếp', 'sale'], ['Nhân sự nghỉ là mất luôn tài liệu, tài khoản', 'mkt'], ['Không biết kênh nào thật sự mang về doanh thu', 'sale'] ] },
+  { name: 'Đã từng thuê agency', icon: 'i-case', who: 'Đã hoặc đang thuê đơn vị bên ngoài làm marketing.', dx: 'Thiếu kế hoạch chủ động và năng lực giám sát.', sym: [
+    ['Trả phí hằng tháng nhưng không rõ hiệu quả thật', 'mkt'], ['Đổi agency nhiều lần, lần nào cũng làm lại từ đầu', 'mkt'], ['Không nắm tài khoản, dữ liệu, tài sản thương hiệu', 'mkt'], ['Không đủ chuyên môn để đánh giá agency làm đúng hay sai', 'mkt'],
+    ['Agency báo nhiều khách nhưng sales chốt được rất ít', 'sale'], ['Báo cáo toàn chỉ số đẹp, không nói về doanh thu', 'sale'], ['Ngừng thuê agency là đơn hàng giảm ngay', 'sale'], ['Thông điệp đổi theo từng agency, thương hiệu không nhất quán', 'mkt'] ] },
+  { name: 'Doanh nghiệp F2 kế thừa', icon: 'i-key', who: 'Thế hệ thứ hai tiếp quản doanh nghiệp gia đình.', dx: 'Thương hiệu lão hóa, cần tái định vị.', sym: [
+    ['Thương hiệu cũ, tệp khách trung thành đang già đi', 'mkt'], ['Cách làm của thế hệ trước khó thay đổi', 'mkt'], ['Muốn làm marketing số nhưng chưa biết bắt đầu từ đâu', 'mkt'], ['Khó thuyết phục gia đình đầu tư cho marketing', 'mkt'],
+    ['Doanh số dựa vào mối quen của thế hệ trước', 'sale'], ['Khách hàng trẻ không biết đến thương hiệu', 'sale'], ['Đội bán hàng lâu năm ngại thay đổi cách bán', 'sale'], ['Hình ảnh, bao bì, website trông lỗi thời', 'mkt'] ] },
+  { name: 'Doanh nghiệp dịch vụ', icon: 'i-headset', who: 'Spa, giáo dục, tư vấn, nhà hàng, du lịch…', dx: 'Chưa hữu hình hóa được giá trị và niềm tin.', sym: [
+    ['Khó thể hiện giá trị của dịch vụ vô hình', 'mkt'], ['Phụ thuộc gần như hoàn toàn vào truyền miệng', 'sale'], ['Trải nghiệm khách hàng không đồng đều giữa nhân viên', 'sale'], ['Khách dùng một lần rồi không quay lại', 'sale'],
+    ['Thiếu đánh giá, câu chuyện khách hàng thật để tạo niềm tin', 'mkt'], ['Ngày thường vắng khách, cuối tuần quá tải', 'sale'], ['Phải giảm giá liên tục mới có khách', 'sale'], ['Không có kênh nhắc lịch, chăm sóc sau dịch vụ', 'mkt'] ] },
+  { name: 'Doanh nghiệp sản xuất', icon: 'i-factory', who: 'Nhà máy, xưởng sản xuất, bán qua đại lý và nhà phân phối.', dx: 'Mạnh sản xuất, yếu thương hiệu.', sym: [
+    ['Sản phẩm tốt nhưng thương hiệu mờ nhạt', 'mkt'], ['Phụ thuộc vào vài đại lý hoặc vài khách hàng lớn', 'sale'], ['Website, catalogue cũ, thiếu kênh tìm khách mới', 'mkt'], ['Cạnh tranh chủ yếu bằng giá', 'sale'],
+    ['Không kiểm soát được giá bán và hình ảnh ở đại lý', 'sale'], ['Đội kinh doanh thiếu tài liệu, công cụ hỗ trợ bán', 'sale'], ['Không có dữ liệu về người dùng cuối', 'mkt'], ['Chưa từng làm marketing bài bản, chủ yếu đi hội chợ', 'mkt'] ] }
+];
+const LEVELS = [
+  { lvl: 'Chưa tích', cls: 'lv0' },
+  { lvl: 'Nhẹ', cls: 'lv1', head: 'Marketing có dấu hiệu bệnh sớm.', msg: 'Bệnh chưa nguy hiểm, nhưng mỗi triệu chứng nhỏ đều đang âm thầm làm hao tiền. Để lâu không chữa, bệnh nhẹ sẽ thành bệnh mãn tính.', rx: 'Gói Tối ưu (2.000.000đ): khám lỗi và nhận giải pháp sửa nhanh.', pkg: 1 },
+  { lvl: 'Trung bình', cls: 'lv2', head: 'Bệnh đã lan sang nhiều bộ phận.', msg: 'Nhiều triệu chứng xuất hiện cùng lúc cho thấy lỗi không còn nằm ở một chỗ. Marketing và bán hàng đang kéo nhau đi xuống, cần khám tổng thể để tìm đúng gốc bệnh.', rx: 'Gói Chuyên nghiệp (5.000.000đ): khám lỗi, giải pháp và tư vấn trực tiếp 60 phút.', pkg: 2 },
+  { lvl: 'Nặng', cls: 'lv3', head: 'Báo động: marketing và bán hàng đang bệnh nặng.', msg: 'Doanh nghiệp đang gặp vấn đề lớn ở cả marketing lẫn bán hàng, tiền và cơ hội đang bị lãng phí mỗi ngày. Cần khám ngay và điều trị tận gốc bằng một kế hoạch chiến lược tổng thể.', rx: 'Gói điều trị: Lập kế hoạch chiến lược marketing tổng thể (1.000 USD). Được khấu trừ 100% giá trị gói khám.', pkg: 3 }
+];
+function levelOf(n) { return n === 0 ? 0 : n <= 2 ? 1 : n <= 5 ? 2 : 3; }
+const KHOA = [
+  { short: 'Tổng quan', icon: 'i-target', title: 'Khám lỗi tổng quan marketing', sub: 'Kiểm tra nền móng: đi sai từ gốc thì càng chạy càng lệch.', checks: ['Chiến lược sản phẩm', 'Chiến lược giá', 'Định vị cho sản phẩm và thương hiệu', 'Kế hoạch marketing', 'Phân bổ ngân sách'] },
+  { short: 'Từng kênh', icon: 'i-share', title: 'Khám lỗi từng kênh: Facebook, Website, YouTube…', sub: 'Mỗi kênh có tiêu chuẩn riêng, và các kênh phải hỗ trợ được nhau.', checks: ['Tiêu chuẩn xây dựng từng kênh', 'Những lỗi gây kém hiệu quả cho kênh', 'Tương tác, kết nối giữa các kênh', 'Content, hình ảnh từng kênh'] },
+  { short: 'Quảng cáo', icon: 'i-mega', title: 'Khám lỗi hoạt động quảng cáo', sub: 'Tìm chỗ ngân sách quảng cáo đang rò rỉ.', checks: ['Lỗi gây kém hiệu quả quảng cáo cho từng kênh', 'Lỗi nội dung quảng cáo', 'Lỗi kỹ thuật quảng cáo'] },
+  { short: 'Nguyên liệu', icon: 'i-image', title: 'Khám lỗi nguyên liệu: content, thiết kế, video', sub: 'Nguyên liệu kém thì món ăn không thể ngon.', checks: ['Kế hoạch xây dựng nguyên liệu', 'Quản lý và tổng hợp nguyên liệu', 'Chất lượng nguyên liệu content, thiết kế, video', 'Công cụ xây dựng nguyên liệu'] },
+  { short: 'Nhân sự', icon: 'i-users', title: 'Khám lỗi nhân sự phòng marketing', sub: 'Đúng người, đúng việc, đúng thước đo.', checks: ['Đánh giá chất lượng nhân sự', 'Quy trình quản lý nhân sự', 'KPI công việc nhân sự', 'Điểm thiếu sót của nhân sự'] },
+  { short: 'Quy trình', icon: 'i-flow', title: 'Khám lỗi quy trình bộ phận', sub: 'Quy trình rõ thì việc chạy trơn, không đùn đẩy.', checks: ['Chất lượng quy trình bộ phận', 'Tiêu chuẩn kết hợp công việc giữa các bộ phận'] },
+  { short: 'Báo cáo', icon: 'i-chart', title: 'Khám lỗi hệ thống báo cáo', sub: 'Báo cáo đủ và đúng thì mới ra quyết định đúng.', checks: ['Tiêu chuẩn đủ của hệ thống báo cáo', 'Chất lượng hệ thống báo cáo'] },
+  { short: 'Quản lý & KPI', icon: 'i-gauge', title: 'Khám lỗi hệ thống quản lý và KPI', sub: 'Marketing, bán hàng và chăm sóc khách hàng phải cùng một nhịp.', checks: ['Tổng quan hệ thống quản lý giữa marketing, bán hàng, CSKH', 'KPI từng bộ phận'] }
+];
+const PKG = ['Gói Tối ưu – 2.000.000đ', 'Gói Chuyên nghiệp – 5.000.000đ', 'Gói điều trị: Lập kế hoạch chiến lược marketing tổng thể – 1.000 USD'];
+const BLANK = { name: '', phone: '', group: 'Khởi nghiệp', pkg: 'Gói Chuyên nghiệp – 5.000.000đ', note: '' };
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { k: 0, g: 0, tg: 0, chk: [], other: '', open: false, terr: '', sent: false, sending: false, err: '', f: { ...BLANK } };
+  }
+  setField(key) {
+    return (e) => this.setState({ f: { ...this.state.f, [key]: e && e.target ? e.target.value : '' }, err: '' });
+  }
+  setF(key, val) {
+    return () => this.setState({ f: { ...this.state.f, [key]: val } });
+  }
+  toggleSym(i) {
+    return () => {
+      const c = this.state.chk;
+      this.setState({ chk: c.includes(i) ? c.filter((x) => x !== i) : c.concat([i]), terr: '' });
+    };
+  }
+  diagnose() {
+    if (this.state.chk.length === 0) { this.setState({ terr: 'Hãy tích ít nhất một triệu chứng để Bác sĩ Marketing chẩn đoán.' }); return; }
+    this.setState({ open: true, terr: '' });
+  }
+  result() {
+    const s = this.state;
+    const gr = GROUPS[s.tg];
+    const chosen = s.chk.slice().sort((a, b) => a - b).map((i) => gr.sym[i]);
+    const L = LEVELS[levelOf(chosen.length)];
+    const mkAll = gr.sym.filter((x) => x[1] === 'mkt').length;
+    const slAll = gr.sym.length - mkAll;
+    const mk = chosen.filter((x) => x[1] === 'mkt').length;
+    const other = String(s.other || '').trim();
+    return { group: gr.name, lvl: L.lvl, cls: L.cls, head: L.head || '', msg: L.msg || '', rx: L.rx || '', pkg: L.pkg || 2,
+      deg: Math.round(-90 + chosen.length / gr.sym.length * 180), mk: mk + '/' + mkAll, sl: (chosen.length - mk) + '/' + slAll,
+      list: chosen.map((x) => x[0]), other: other, hasOther: !!other };
+  }
+  async submit() {
+    const f = this.state.f;
+    const phone = String(f.phone || '').replace(/[^0-9+]/g, '');
+    if (!String(f.name || '').trim()) { this.setState({ err: 'Vui lòng nhập họ và tên.' }); return; }
+    const digits = phone.replace('+', '');
+    if (digits.length < 9 || digits.length > 12) { this.setState({ err: 'Số điện thoại chưa đúng, vui lòng kiểm tra lại.' }); return; }
+    const url = String(this.props.sheetEndpoint || '').trim();
+    if (!/^https:\/\/script\.google\.com\//.test(url)) { this.setState({ err: 'Form chưa được kết nối Google Sheet. Vui lòng gọi 0785.24.9867 để đặt lịch ngay.' }); return; }
+    this.setState({ sending: true, err: '' });
+    try {
+      await fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name: f.name.trim(), phone: phone, group: f.group, package: f.pkg, note: f.note, source: 'Landing page Bác sĩ Marketing v4.1' }) });
+      this.setState({ sending: false, sent: true, f: { ...BLANK } });
+    } catch (e) {
+      this.setState({ sending: false, err: 'Chưa gửi được thông tin. Vui lòng thử lại hoặc gọi 0785.24.9867.' });
+    }
+  }
+  renderVals() {
+    const s = this.state;
+    const k = s.k;
+    const c = KHOA[k];
+    const gi = GROUPS[s.g];
+    const n = KHOA.length;
+    const rr = this.result();
+    return {
+      groups: GROUPS.map((x, i) => ({ name: x.name, icon: x.icon, cls: i === s.g ? 'on' : '', pressed: i === s.g ? 'true' : 'false', pick: () => this.setState({ g: i }) })),
+      g: { name: gi.name, who: gi.who, sym: gi.sym.slice(0, 4).map((x) => x[0]), dx: gi.dx },
+      tgroups: GROUPS.map((x, i) => ({ name: x.name, icon: x.icon, cls: i === s.tg ? 'on' : '', pressed: i === s.tg ? 'true' : 'false', pick: () => this.setState({ tg: i, chk: [], terr: '' }) })),
+      tsym: GROUPS[s.tg].sym.map((x, i) => ({ t: x[0], a: x[1], al: x[1] === 'mkt' ? 'Marketing' : 'Bán hàng', checked: s.chk.includes(i), cls: s.chk.includes(i) ? 'on' : '', toggle: this.toggleSym(i) })),
+      other: s.other,
+      setOther: (e) => this.setState({ other: e && e.target ? e.target.value : '' }),
+      t: { count: s.chk.length + ' / ' + GROUPS[s.tg].sym.length, pct: Math.round(s.chk.length / GROUPS[s.tg].sym.length * 100), cls: LEVELS[levelOf(s.chk.length)].cls, text: s.chk.length ? 'Mức độ: ' + LEVELS[levelOf(s.chk.length)].lvl : 'Chưa tích triệu chứng' },
+      terr: s.terr,
+      hasTerr: !!s.terr,
+      diagnose: () => this.diagnose(),
+      open: s.open,
+      r: rr,
+      closeM: () => this.setState({ open: false }),
+      retake: () => this.setState({ open: false, chk: [], other: '' }),
+      bookFromTest: () => this.setState({ open: false, f: { ...this.state.f, group: rr.group, pkg: PKG[rr.pkg - 1], note: 'Triệu chứng (mức ' + rr.lvl + '): ' + rr.list.join('; ') + (rr.other ? ' | Kể thêm: ' + rr.other : '') } }),
+      groupNames: GROUPS.map((x) => x.name).concat(['Doanh nghiệp khác']),
+      bookGroup: this.setF('group', gi.name),
+      khoa: KHOA.map((x, i) => {
+        const a = (-90 + i * 360 / n) * Math.PI / 180;
+        return { short: x.short, icon: x.icon, x: (50 + 42 * Math.cos(a)).toFixed(2), y: (50 + 42 * Math.sin(a)).toFixed(2), cls: i === k ? 'on' : '', pressed: i === k ? 'true' : 'false', pick: () => this.setState({ k: i }) };
+      }),
+      cur: { label: 'Hạng mục ' + (k + 1) + ' / ' + n, pct: Math.round((k + 1) / n * 100), title: c.title, sub: c.sub, checks: c.checks },
+      prevK: () => this.setState({ k: (k + n - 1) % n }),
+      nextK: () => this.setState({ k: (k + 1) % n }),
+      pick1: this.setF('pkg', PKG[0]),
+      pick2: this.setF('pkg', PKG[1]),
+      pick3: this.setF('pkg', PKG[2]),
+      sent: s.sent,
+      notSent: !s.sent,
+      f: s.f,
+      setName: this.setField('name'),
+      setPhone: this.setField('phone'),
+      setGroup: this.setField('group'),
+      setPkg: this.setField('pkg'),
+      setNote: this.setField('note'),
+      submit: () => this.submit(),
+      sendLabel: s.sending ? 'Đang gửi…' : 'Gửi phiếu đăng ký khám',
+      err: s.err,
+      hasErr: !!s.err
+    };
+  }
+}
+</script>
+</body>
+</html>
