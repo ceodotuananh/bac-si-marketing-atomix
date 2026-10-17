@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Atomix – Phòng khám Bác sĩ Marketing</title>
 <script src="./support.js"></script>
 </head>
@@ -271,10 +272,10 @@ textarea.fi{padding:12px 14px;min-height:88px;resize:vertical}
 .tq{font-size:clamp(15px,1.4vw,18px);font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#ff9ea3}
 .big1{display:block;font-size:clamp(54px,10vw,150px);font-weight:900;line-height:.92;letter-spacing:-.03em;text-transform:uppercase;color:#fff;animation:flick 4s steps(1) infinite}
 @keyframes flick{0%,100%{opacity:1}46%{opacity:1}47%{opacity:.35}48%{opacity:1}52%{opacity:.5}53%{opacity:1}}
-.big2{display:block;font-size:clamp(34px,6.4vw,96px);font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;background:linear-gradient(90deg,#ff3b45 0%,#ff3b45 48%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.16) 100%);background-size:220% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:spreadT 6s cubic-bezier(.6,0,.3,1) infinite;filter:drop-shadow(0 0 22px rgba(255,40,55,.45))}
+.big2{display:block;margin-top:.18em;font-size:clamp(34px,6.4vw,96px);font-weight:900;line-height:1;letter-spacing:-.02em;text-transform:uppercase;background:linear-gradient(90deg,#ff3b45 0%,#ff3b45 48%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.16) 100%);background-size:220% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:spreadT 6s cubic-bezier(.6,0,.3,1) infinite;filter:drop-shadow(0 0 22px rgba(255,40,55,.45))}
 @keyframes spreadT{0%,8%{background-position:100% 0}62%,90%{background-position:0 0}100%{background-position:100% 0}}
-.vein{stroke-dasharray:320;stroke-dashoffset:320;animation:vein 7s ease-in-out infinite}
-@keyframes vein{0%,6%{stroke-dashoffset:320}22%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:320}}
+.vein{stroke-dasharray:100;stroke-dashoffset:100;animation:vein 7s ease-in-out infinite}
+@keyframes vein{0%,6%{stroke-dashoffset:100}22%,86%{stroke-dashoffset:0}100%{stroke-dashoffset:100}}
 .organ{animation:infect 7s ease-in-out infinite}
 @keyframes infect{0%,14%{fill:#2a0812;stroke:rgba(255,140,145,.45)}26%,86%{fill:#c40d18;stroke:#ffb3b8}100%{fill:#2a0812;stroke:rgba(255,140,145,.45)}}
 .core{transform-box:fill-box;transform-origin:center;animation:grow 7s ease-in-out infinite}
@@ -623,11 +624,11 @@ header .btn-red{min-height:42px!important;font-size:14px!important;padding:0 16p
 <p class="lead" style="max-width: 720px">Lỗi trong marketing âm thầm lan sang bán hàng, nhân sự, tài chính, sản phẩm. Phát hiện sớm thì xử lý nhẹ. Đến khi thấy đau, bệnh đã lan khắp doanh nghiệp.</p>
 <svg viewBox="0 0 640 380" style="display: block; width: 100%; max-width: 760px; height: auto; overflow: visible" aria-hidden="true">
 <g fill="none" stroke="#ff3b45" stroke-width="3" stroke-linecap="round">
-<path class="vein" d="M320 190 C250 160 200 110 120 80" style="animation-delay: .4s"></path>
-<path class="vein" d="M320 190 C390 160 440 110 520 80" style="animation-delay: .9s"></path>
-<path class="vein" d="M320 190 C250 230 180 270 100 300" style="animation-delay: 1.4s"></path>
-<path class="vein" d="M320 190 C390 230 460 270 540 300" style="animation-delay: 1.9s"></path>
-<path class="vein" d="M320 190 C318 250 322 300 320 345" style="animation-delay: 2.4s"></path>
+<path class="vein" pathLength="100" d="M320 190 C250 160 200 110 120 80" style="animation-delay: .4s"></path>
+<path class="vein" pathLength="100" d="M320 190 C390 160 440 110 520 80" style="animation-delay: .9s"></path>
+<path class="vein" pathLength="100" d="M320 190 C250 230 180 270 100 300" style="animation-delay: 1.4s"></path>
+<path class="vein" pathLength="100" d="M320 190 C390 230 460 270 540 300" style="animation-delay: 1.9s"></path>
+<path class="vein" pathLength="100" d="M320 190 C318 250 322 300 320 345" style="animation-delay: 2.4s"></path>
 </g>
 <g stroke-width="2.5">
 <circle class="organ" cx="120" cy="80" r="40" style="animation-delay: .9s"></circle>
