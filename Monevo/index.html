@@ -373,9 +373,13 @@ body{background:var(--page);min-height:100vh}
 .auth-logo{display:flex;justify-content:center}
 .auth-logo .logo-img{width:200px}
 .notice{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--g-soft);color:var(--ink);font-size:14px;line-height:1.5;border:1px solid var(--line)}
+.dsec{display:grid;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+.dsec:last-child{border-bottom:0}
+.dsec h4{margin:0;font-size:15px}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script>window.MONEVO_CFG={url:"PASTE_SUPABASE_PROJECT_URL",key:"PASTE_SUPABASE_ANON_KEY"};</script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>window.MONEVO_CFG={url:"PASTE_SUPABASE_PROJECT_URL",key:"PASTE_SUPABASE_ANON_KEY",googleClientId:"PASTE_GOOGLE_CLIENT_ID"};</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -482,6 +486,7 @@ body{background:var(--page);min-height:100vh}
         <select id="fNeedSel" aria-label="Mức cần thiết"></select>
         <select id="fWalletSel" aria-label="Ví"></select>
         <select id="fJarSel" aria-label="Hũ"></select>
+        <button class="btn btn-ghost btn-sm" id="btnData" type="button">Nhập / xuất dữ liệu</button>
       </div>
       <div class="sumbox">
         <div><small>Tổng nhận</small><b class="num pos" id="lsIn">0</b></div>
@@ -660,6 +665,7 @@ body{background:var(--page);min-height:100vh}
   <button data-new="out"><span class="ico out">↑</span>Khoản chi</button>
   <button data-new="transfer"><span class="ico tr">⇄</span>Chuyển giữa các ví</button>
   <button data-new="jartransfer"><span class="ico tr">◫</span>Chuyển giữa các hũ</button>
+  <button data-new="data"><span class="ico tr">⇅</span>Nhập / xuất dữ liệu</button>
 </div>
 
 <dialog id="dlg" aria-labelledby="dlgTitle">
@@ -708,6 +714,34 @@ body{background:var(--page);min-height:100vh}
       <button type="submit" class="btn btn-ink" id="fSave">Lưu</button>
     </div>
   </form>
+</dialog>
+
+<dialog id="dlgData" aria-labelledby="dataTitle">
+  <div class="dlg-head"><h3 id="dataTitle">Nhập / xuất dữ liệu</h3><button type="button" class="iconbtn" id="dataClose" aria-label="Đóng">×</button></div>
+  <div class="dlg-body">
+    <div class="dsec">
+      <h4>1. Nhập bằng Excel</h4>
+      <p class="sub">Tải file mẫu, điền khoản thu chi vào sheet GhiChep rồi nhập lại. Có thể xuất dữ liệu hiện có ra Excel để sửa và nhập lại.</p>
+      <div class="toolbar" style="margin:0">
+        <button class="btn btn-ghost btn-sm" id="xlTemplate" type="button">Tải file mẫu Excel</button>
+        <button class="btn btn-ghost btn-sm" id="xlExport" type="button">Xuất dữ liệu hiện có</button>
+        <label class="btn btn-ink btn-sm" for="xlFile">Chọn file Excel để nhập</label>
+      </div>
+      <input id="xlFile" type="file" accept=".xlsx,.xls,.csv" hidden>
+      <p class="sub" id="xlMsg"></p>
+    </div>
+    <div class="dsec">
+      <h4>2. Nhập bằng Google Sheet</h4>
+      <p class="sub" id="gsStatus"></p>
+      <div class="toolbar" style="margin:0">
+        <button class="btn btn-ink btn-sm" id="gsCreate" type="button">Tạo Google Sheet theo mẫu</button>
+        <a class="btn btn-ghost btn-sm" id="gsOpen" href="#" target="_blank" rel="noopener">Mở Google Sheet</a>
+        <button class="btn btn-ghost btn-sm" id="gsSync" type="button">Đồng bộ từ Google Sheet</button>
+      </div>
+      <p class="sub" id="gsMsg"></p>
+    </div>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn btn-ghost" id="dataDone">Đóng</button></div>
 </dialog>
 
 <dialog id="popup" aria-label="Thông báo"><div class="pop-wrap"><button class="iconbtn pop-x" id="popClose" aria-label="Đóng">×</button><div id="popBody"></div><div class="pop-foot"><div id="popDots"></div><div style="display:flex;gap:8px"><button class="iconbtn" id="popPrev" aria-label="Trước">‹</button><button class="btn btn-ink btn-sm" id="popNext">›</button></div></div></div></dialog>
@@ -780,7 +814,7 @@ function mergeSettings(s){
   if(!hasW&&s.opening!==undefined)w[0].opening=Number(s.opening)||0;
   return {inTypes:inT,outCats:outC,realIn:ri,realOut:ro,wallets:w,
     jars:Array.isArray(s.jars)&&s.jars.length?s.jars:d.jars,
-    catJar:Object.assign({},d.catJar,s.catJar||{}),budget:s.budget||{},theme:s.theme||"auto",popups:mergePopups(s.popups)};
+    catJar:Object.assign({},d.catJar,s.catJar||{}),budget:s.budget||{},theme:s.theme||"auto",popups:mergePopups(s.popups),gsheet:s.gsheet||null};
 }
 var state={tx:[],settings:defaultSettings()};
 var now=new Date();
@@ -1333,7 +1367,7 @@ $("prev").addEventListener("click",function(){shift(-1)});$("next").addEventList
 var fab=$("fab"),sheet=$("sheet");
 fab.addEventListener("click",function(e){e.stopPropagation();sheet.hidden=!sheet.hidden;fab.setAttribute("aria-expanded",String(!sheet.hidden));fab.textContent=sheet.hidden?"+":"×"});
 document.addEventListener("click",function(e){if(!sheet.hidden&&!sheet.contains(e.target)&&e.target!==fab){sheet.hidden=true;fab.textContent="+";fab.setAttribute("aria-expanded","false")}});
-sheet.addEventListener("click",function(e){var b=e.target.closest("[data-new]");if(!b)return;sheet.hidden=true;fab.textContent="+";openForm(b.dataset.new)});
+sheet.addEventListener("click",function(e){var b=e.target.closest("[data-new]");if(!b)return;sheet.hidden=true;fab.textContent="+";if(b.dataset.new==="data")openDataDlg();else openForm(b.dataset.new)});
 // Rows
 document.addEventListener("click",function(e){var row=e.target.closest(".row");if(!row)return;var t=state.tx.find(function(x){return x.id===row.dataset.id});if(t)openForm(t.kind,t)});
 // Filters
@@ -1701,8 +1735,250 @@ $("adminList").addEventListener("change",async function(e){
 });
 function renderAdminTab(){if(sb&&store.mode!=="local")loadAdmin()}
 
+/* ---------- Nhập / xuất dữ liệu: Excel và Google Sheet ---------- */
+var DS_HEAD=["Mã","Ngày","Loại","Số tiền","Hạng mục","Ví","Hũ","Nội dung","Nguồn","Mức cần thiết","Trạng thái","Ví chuyển đi","Ví nhận","Hũ chuyển đi","Hũ nhận","Ghi chú"];
+var DS_KIND={"Khoản nhận":"in","Khoản chi":"out","Chuyển ví":"transfer","Chuyển hũ":"jartransfer"};
+var DS_KIND_LABEL={in:"Khoản nhận",out:"Khoản chi",transfer:"Chuyển ví",jartransfer:"Chuyển hũ"};
+var DS_NEED={"Cần thiết":"need","Chi thì tốt":"nice","Không cần thiết":"noneed"};
+var DS_NEED_LABEL={need:"Cần thiết",nice:"Chi thì tốt",noneed:"Không cần thiết"};
+var DS_STATUS={"Đã thực hiện":"done","Dự kiến":"plan"};
+var DS_GUIDE=["Cách dùng file mẫu MONEVO",
+  "1. Nhập mỗi khoản thu hoặc chi một dòng ở sheet GhiChep, bắt đầu từ dòng 2.",
+  "2. Ngày ghi dạng năm-tháng-ngày, ví dụ 2026-10-21, hoặc ngày/tháng/năm, ví dụ 21/10/2026.",
+  "3. Loại, Hạng mục, Ví, Hũ, Mức cần thiết và Trạng thái phải chọn đúng tên trong sheet “Danh sách”.",
+  "4. Cột Mã để trống khi thêm khoản mới. Với khoản đã có, giữ nguyên Mã để không bị nhập trùng.",
+  "5. Chuyển ví: điền Ví chuyển đi và Ví nhận. Chuyển hũ: điền Hũ chuyển đi và Hũ nhận. Cột không dùng thì để trống.",
+  "6. Trạng thái “Dự kiến” là khoản chưa thực hiện, dùng cho kế hoạch dòng tiền.",
+  "7. Excel: lưu file, mở MONEVO, bấm Nhập / xuất dữ liệu rồi chọn file để nhập.",
+  "8. Google Sheet: bấm Đồng bộ từ Google Sheet trong MONEVO. Hệ thống tự điền Mã cho khoản mới."];
+var GS_SCOPE="https://www.googleapis.com/auth/spreadsheets";
+var GS_API="https://sheets.googleapis.com/v4/spreadsheets/";
+
+function dsSet(id,m){$(id).textContent=m}
+function dsErrs(errs){return errs.length?" Bỏ qua "+errs.length+" dòng lỗi: "+errs.slice(0,5).join("; ")+(errs.length>5?"…":""):""}
+function dsNeedXlsx(){if(window.XLSX)return true;toast("Chưa tải được bộ đọc Excel. Kiểm tra kết nối mạng rồi thử lại.");return false}
+function dsByName(list,name){var n=String(name||"").trim().toLowerCase();for(var i=0;i<list.length;i++)if(String(list[i].name).trim().toLowerCase()===n)return list[i];return null}
+function dsWallet(name){var w=dsByName(wallets(),name);return w?w.id:null}
+function dsJar(name){var n=String(name||"").trim();if(n==="Chưa phân bổ")return "_free";var j=dsByName(jars(),n);return j?j.id:null}
+function dsDate(v){
+  if(typeof v==="number"&&v>0){var d=new Date(Math.round((v-25569)*864e5));return d.getUTCFullYear()+"-"+pad(d.getUTCMonth()+1)+"-"+pad(d.getUTCDate())}
+  var s=String(v).trim(),m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if(m)return m[1]+"-"+pad(+m[2])+"-"+pad(+m[3]);
+  m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m)return m[3]+"-"+pad(+m[2])+"-"+pad(+m[1]);
+  return "";
+}
+function dsRow(row,ix){
+  var c=function(h){return ix[h]>=0?row[ix[h]]:""};
+  var kind=DS_KIND[String(c("Loại")).trim()];
+  if(!kind)return {err:"Loại phải là Khoản nhận, Khoản chi, Chuyển ví hoặc Chuyển hũ"};
+  var amount=typeof c("Số tiền")==="number"?Math.round(c("Số tiền")):parseAmt(c("Số tiền"));
+  if(!amount)return {err:"Số tiền phải lớn hơn 0"};
+  var date=dsDate(c("Ngày"));
+  if(!date)return {err:"Ngày không đúng, dùng dạng 2026-10-21"};
+  var t={id:String(c("Mã")).trim(),kind:kind,amount:amount,date:date,note:String(c("Ghi chú")).trim()};
+  var st=String(c("Trạng thái")).trim(),need=String(c("Mức cần thiết")).trim();
+  if(kind==="in"||kind==="out"){
+    var cat=dsByName(kind==="in"?state.settings.inTypes:state.settings.outCats,c("Hạng mục"));
+    if(!cat)return {err:"Hạng mục không có trong danh sách"};
+    t.cat=cat.id;
+    t.wallet=dsWallet(c("Ví"));if(!t.wallet)return {err:"Ví không tồn tại"};
+    t.desc=String(c("Nội dung")).trim();
+    t.status=st?DS_STATUS[st]:"done";if(!t.status)return {err:"Trạng thái không hợp lệ"};
+    if(kind==="in")t.source=String(c("Nguồn")).trim();
+    else{
+      t.need=need?DS_NEED[need]:"need";if(!t.need)return {err:"Mức cần thiết không hợp lệ"};
+      var hu=String(c("Hũ")).trim();
+      if(!hu)t.jar=state.settings.catJar[cat.id]||"";
+      else if(hu==="Không thuộc hũ")t.jar="";
+      else{t.jar=dsJar(hu);if(!t.jar||t.jar==="_free")return {err:"Hũ không tồn tại"}}
+    }
+  }else if(kind==="transfer"){
+    t.fromWallet=dsWallet(c("Ví chuyển đi"));t.toWallet=dsWallet(c("Ví nhận"));
+    if(!t.fromWallet||!t.toWallet)return {err:"Chuyển ví cần đủ Ví chuyển đi và Ví nhận"};
+    if(t.fromWallet===t.toWallet)return {err:"Hai ví phải khác nhau"};
+    t.status="done";
+  }else{
+    t.fromJar=dsJar(c("Hũ chuyển đi"));t.toJar=dsJar(c("Hũ nhận"));
+    if(!t.fromJar||!t.toJar||t.toJar==="_free")return {err:"Chuyển hũ cần Hũ chuyển đi và Hũ nhận (Hũ nhận phải là một hũ thật)"};
+    if(t.fromJar===t.toJar)return {err:"Hai hũ phải khác nhau"};
+    t.status="done";
+  }
+  return {t:t};
+}
+/* Đọc bảng (dòng đầu là tiêu đề). Trả về items [{t,line,isNew}] và errors */
+function dsParse(rows){
+  var head=(rows[0]||[]).map(function(h){return String(h).trim()}),ix={};
+  DS_HEAD.forEach(function(h){ix[h]=head.indexOf(h)});
+  if(ix["Ngày"]<0||ix["Loại"]<0||ix["Số tiền"]<0)return {error:"File không đúng mẫu: thiếu cột Ngày, Loại hoặc Số tiền. Hãy tải file mẫu MONEVO."};
+  var items=[],errors=[];
+  for(var r=1;r<rows.length;r++){
+    var row=rows[r]||[];
+    if(!row.some(function(v){return String(v).trim()!==""}))continue;
+    var x=dsRow(row,ix);
+    if(x.err){errors.push("dòng "+(r+1)+": "+x.err);continue}
+    var isNew=!x.t.id;if(isNew)x.t.id=uid();
+    items.push({t:x.t,line:r+1,isNew:isNew});
+  }
+  return {items:items,errors:errors};
+}
+/* Thêm mới hoặc cập nhật theo Mã; ghi vào bộ nhớ rồi lưu lên máy chủ */
+function dsUpsert(items){
+  var added=0,updated=0,saved=[];
+  items.forEach(function(x){
+    var t=x.t,i=state.tx.findIndex(function(o){return o.id===t.id});
+    if(i>=0){t.created=state.tx[i].created||Date.now();state.tx[i]=t;updated++}
+    else{t.created=Date.now();state.tx.push(t);added++}
+    if(t.kind==="in"&&t.status==="done"&&state.settings.realIn[t.cat])t.alloc=splitNow(t.amount);else delete t.alloc;
+    saved.push(t);
+  });
+  render();persistMany(saved);
+  return {added:added,updated:updated};
+}
+function persistMany(list){
+  if(!sb||store.mode!=="db"||!list.length)return;
+  var rows=list.map(function(t){return {id:t.id,user_id:store.uid,data:clean(t)}});
+  for(var i=0;i<rows.length;i+=500)sb.from("transactions").upsert(rows.slice(i,i+500)).then(function(r){if(r.error)onWriteErr(r.error)});
+}
+function dsReadFile(file){
+  return file.arrayBuffer().then(function(buf){
+    var wb=XLSX.read(new Uint8Array(buf),{type:"array"});
+    var name=wb.SheetNames.indexOf("GhiChep")>=0?"GhiChep":wb.SheetNames[0];
+    return XLSX.utils.sheet_to_json(wb.Sheets[name],{header:1,raw:true,defval:""});
+  });
+}
+function dsOut(t){
+  var io=t.kind==="in"||t.kind==="out",tr=t.kind==="transfer",jt=t.kind==="jartransfer";
+  return [t.id,t.date,DS_KIND_LABEL[t.kind],t.amount,
+    io?nameOf(t.kind==="in"?IN_TYPES:OUT_CATS,t.cat):"",
+    io?walletName(walletOf(t)):"",
+    t.kind==="out"&&jarOf(t)?jarName(jarOf(t)):"",
+    t.desc||"",t.source||"",
+    t.kind==="out"?DS_NEED_LABEL[t.need||"need"]:"",
+    t.status==="plan"?"Dự kiến":"Đã thực hiện",
+    tr?walletName(t.fromWallet):"",tr?walletName(t.toWallet):"",
+    jt?jarName(t.fromJar):"",jt?jarName(t.toJar):"",
+    t.note||""];
+}
+/* Danh sách giá trị hợp lệ, lấy theo cài đặt hiện tại */
+function dsListRows(){
+  var cols=[["Loại","Khoản nhận","Khoản chi","Chuyển ví","Chuyển hũ"],
+    ["Hạng mục khoản nhận"].concat(state.settings.inTypes.map(function(x){return x.name})),
+    ["Hạng mục chi"].concat(state.settings.outCats.map(function(x){return x.name})),
+    ["Ví"].concat(wallets().map(function(w){return w.name})),
+    ["Hũ","Chưa phân bổ","Không thuộc hũ"].concat(jars().map(function(j){return j.name})),
+    ["Mức cần thiết","Cần thiết","Chi thì tốt","Không cần thiết"],
+    ["Trạng thái","Đã thực hiện","Dự kiến"]];
+  var n=Math.max.apply(null,cols.map(function(c){return c.length})),rows=[];
+  for(var i=0;i<n;i++)rows.push(cols.map(function(c){return c[i]===undefined?"":c[i]}));
+  return rows;
+}
+function dsBook(rows,file){
+  var wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),"GhiChep");
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(dsListRows()),"Danh sách");
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(DS_GUIDE.map(function(s){return [s]})),"Hướng dẫn");
+  XLSX.writeFile(wb,file);
+}
+function dsTemplate(){if(dsNeedXlsx())dsBook([DS_HEAD],"MONEVO-mau-nhap-lieu.xlsx")}
+function dsExport(){
+  if(!dsNeedXlsx())return;
+  var rows=state.tx.slice().sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:0}).map(dsOut);
+  dsBook([DS_HEAD].concat(rows),"MONEVO-"+iso(new Date())+".xlsx");
+}
+/* ----- Google Sheet: kết nối bằng đăng nhập Google, token lưu trong phiên trình duyệt ----- */
+function gsClientId(){var c=(window.MONEVO_CFG||{}).googleClientId||"";return c.indexOf("PASTE")===0?"":c}
+function gsSaveToken(t,sec){try{sessionStorage.setItem("monevo-gs",JSON.stringify({t:t,exp:Date.now()+sec*1000}))}catch(e){}}
+function gsToken(){try{var o=JSON.parse(sessionStorage.getItem("monevo-gs")||"null");if(o&&o.exp>Date.now()+60000)return o.t}catch(e){}return null}
+/* Sau khi Google chuyển về trang, lấy token từ địa chỉ (chỉ khi đúng state của MONEVO) */
+function gsCatchToken(){
+  if(location.hash.indexOf("state=monevo-gs")<0)return;
+  var p=new URLSearchParams(location.hash.slice(1));
+  history.replaceState(null,"",location.pathname+location.search);
+  if(p.get("access_token")){gsSaveToken(p.get("access_token"),+p.get("expires_in")||3600);toast("Đã kết nối Google. Bấm lại nút vừa rồi để tiếp tục.")}
+  else toast("Không kết nối được Google Sheet.");
+}
+function gsLogin(){
+  var cid=gsClientId();
+  if(!cid){toast("Chưa cấu hình Google Client ID. Xem hướng dẫn kỹ thuật.");return}
+  location.href="https://accounts.google.com/o/oauth2/v2/auth?client_id="+encodeURIComponent(cid)+"&redirect_uri="+encodeURIComponent(location.origin+location.pathname)+"&response_type=token&scope="+encodeURIComponent(GS_SCOPE)+"&state=monevo-gs&prompt=select_account";
+}
+function gsFetch(url,opt){
+  var t=gsToken();
+  if(!t){gsLogin();return Promise.reject(new Error("login"))}
+  opt=opt||{};
+  opt.headers=Object.assign({"Authorization":"Bearer "+t,"Content-Type":"application/json"},opt.headers||{});
+  return fetch(url,opt).then(function(r){
+    if(r.status===401){try{sessionStorage.removeItem("monevo-gs")}catch(e){}throw new Error("Phiên Google đã hết hạn. Bấm lại nút để kết nối.")}
+    return r.json().then(function(j){if(!r.ok)throw new Error((j.error&&j.error.message)||"Lỗi Google Sheet");return j});
+  });
+}
+function gsErr(e){if(e&&e.message!=="login")dsSet("gsMsg",e.message||"Lỗi Google Sheet")}
+function gsRefreshUi(){
+  var g=state.settings.gsheet;
+  $("gsOpen").href=g?g.url:"#";
+  $("gsStatus").textContent=!gsClientId()?"Chưa cấu hình kết nối Google (cần Google Client ID). Trong lúc chờ, dùng Excel.":g?"Đã có Google Sheet. Nhập liệu trên sheet rồi bấm Đồng bộ.":"Chưa có Google Sheet. Bấm “Tạo Google Sheet theo mẫu”.";
+}
+function gsCreate(){
+  if(!gsClientId()){dsSet("gsMsg","Chưa cấu hình Google Client ID.");return}
+  if(state.settings.gsheet&&!confirm("Đã có Google Sheet. Tạo file mới sẽ thay file đồng bộ hiện tại. Tiếp tục?"))return;
+  dsSet("gsMsg","Đang tạo Google Sheet…");
+  gsFetch(GS_API,{method:"POST",body:JSON.stringify({properties:{title:"MONEVO - Ghi chép thu chi"},sheets:[{properties:{title:"GhiChep"}},{properties:{title:"Danh sách"}}]})})
+    .then(function(ss){
+      return gsFetch(GS_API+ss.spreadsheetId+"/values:batchUpdate",{method:"POST",body:JSON.stringify({valueInputOption:"RAW",data:[{range:"GhiChep!A1",values:[DS_HEAD]},{range:"'Danh sách'!A1",values:dsListRows()}]})}).then(function(){
+        state.settings.gsheet={id:ss.spreadsheetId,url:ss.spreadsheetUrl};persistSettings();gsRefreshUi();
+        dsSet("gsMsg","Đã tạo Google Sheet. Mở sheet để nhập liệu, rồi quay lại bấm Đồng bộ.");
+      });
+    }).catch(gsErr);
+}
+function gsSync(){
+  var g=state.settings.gsheet;
+  if(!g){dsSet("gsMsg","Chưa có Google Sheet. Bấm “Tạo Google Sheet theo mẫu” trước.");return}
+  dsSet("gsMsg","Đang đồng bộ…");
+  gsFetch(GS_API+g.id+"/values/"+encodeURIComponent("GhiChep!A2:P")+"?valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER")
+    .then(function(j){
+      var res=dsParse([DS_HEAD].concat(j.values||[]));
+      if(res.error)throw new Error(res.error);
+      /* Ghi Mã vào sheet trước cho khoản mới, để lần đồng bộ sau không nhập trùng */
+      var fill=res.items.filter(function(x){return x.isNew}).map(function(x){return {range:"GhiChep!A"+x.line,values:[[x.t.id]]}});
+      return Promise.resolve(fill.length?gsFetch(GS_API+g.id+"/values:batchUpdate",{method:"POST",body:JSON.stringify({valueInputOption:"RAW",data:fill})}):null).then(function(){
+        var r=dsUpsert(res.items);
+        dsSet("gsMsg","Đồng bộ xong: thêm "+r.added+", cập nhật "+r.updated+"."+dsErrs(res.errors));
+        toast("Đã đồng bộ Google Sheet.");
+      });
+    })
+    .catch(gsErr);
+}
+function openDataDlg(){
+  gsRefreshUi();
+  if(typeof dlgData.showModal==="function")dlgData.showModal();else dlgData.setAttribute("open","");
+}
+var dlgData=$("dlgData");
+$("btnData").addEventListener("click",openDataDlg);
+$("dataClose").addEventListener("click",function(){dlgData.close()});
+$("dataDone").addEventListener("click",function(){dlgData.close()});
+$("xlTemplate").addEventListener("click",dsTemplate);
+$("xlExport").addEventListener("click",dsExport);
+$("xlFile").addEventListener("change",function(e){
+  var f=e.target.files[0];e.target.value="";
+  if(!f||!dsNeedXlsx())return;
+  dsSet("xlMsg","Đang đọc file…");
+  dsReadFile(f).then(function(rows){
+    var res=dsParse(rows);
+    if(res.error){dsSet("xlMsg",res.error);return}
+    if(!res.items.length){dsSet("xlMsg","Không có khoản hợp lệ nào."+dsErrs(res.errors));return}
+    if(!confirm("Tìm thấy "+res.items.length+" khoản hợp lệ."+(res.errors.length?" "+res.errors.length+" dòng lỗi sẽ bị bỏ qua.":"")+" Nhập vào tài khoản?"))return;
+    var r=dsUpsert(res.items);
+    dsSet("xlMsg","Đã nhập: thêm "+r.added+", cập nhật "+r.updated+"."+dsErrs(res.errors));
+    toast("Đã nhập dữ liệu từ Excel.");
+  }).catch(function(){dsSet("xlMsg","Không đọc được file. Hãy dùng file .xlsx hoặc .csv đúng mẫu.")});
+});
+$("gsCreate").addEventListener("click",gsCreate);
+$("gsSync").addEventListener("click",gsSync);
+$("gsOpen").addEventListener("click",function(e){if(!state.settings.gsheet){e.preventDefault();toast("Chưa có Google Sheet. Bấm “Tạo Google Sheet theo mẫu” trước.")}});
+
 /* ---------- Khởi động ---------- */
-syncCats();applyTheme();render();connect();
+gsCatchToken();syncCats();applyTheme();render();connect();
 })();
 
 </script>
