@@ -647,6 +647,13 @@ body{background:var(--page);min-height:100vh}
         <div class="card"><h3>Tài khoản và bảo mật</h3><p class="sub" id="acctEmail"></p>
           <div class="notice">Dữ liệu của bạn được bảo mật hoàn toàn. Chỉ mình bạn có thể nhìn thấy dữ liệu này. Quản trị viên không xem được nội dung thu chi của bạn.</div>
           <button class="btn btn-ghost mt" id="btnLogout" type="button">Đăng xuất</button></div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Kết nối ngân hàng tự động</h3>
+          <p class="sub">Mỗi khoản thu, chi có một mã chuyển khoản dạng MVXXXXXX. Ghi mã vào nội dung chuyển khoản. Khi ngân hàng báo giao dịch có mã, MONEVO tự chuyển khoản “Dự kiến” tương ứng sang “Đã thực hiện”.</p>
+          <div class="field"><label for="bankUrl">Địa chỉ webhook của bạn (giữ bí mật, không gửi cho người khác)</label>
+            <div style="display:flex;gap:8px"><input id="bankUrl" class="fi" readonly placeholder="Đăng nhập để có địa chỉ webhook"><button class="btn btn-ghost btn-sm" id="bankCopy" type="button">Sao chép</button></div></div>
+          <div class="toolbar mt" style="margin-bottom:0"><button class="btn btn-ink btn-sm" id="bankCheck" type="button">Kiểm tra giao dịch ngân hàng</button><span class="sub" id="bankMsg"></span></div>
+        </div>
         <div class="card">
           <h3>Giao diện</h3>
           <p class="sub">Nền sáng, tối hoặc theo máy.</p>
@@ -704,6 +711,10 @@ body{background:var(--page);min-height:100vh}
           <label><input type="radio" name="status" value="done" checked>Đã thực hiện</label>
           <label><input type="radio" name="status" value="plan">Dự kiến</label>
         </div>
+      </div>
+      <div class="field" data-for="in out"><label for="fCode">Mã chuyển khoản</label>
+        <div style="display:flex;gap:8px"><input id="fCode" class="num" readonly><button type="button" class="btn btn-ghost btn-sm" id="fCodeCopy">Sao chép</button></div>
+        <p class="sub" style="margin:4px 0 0">Ghi mã này vào nội dung chuyển khoản. Khi ngân hàng báo giao dịch có mã, MONEVO tự ghi nhận khoản này.</p>
       </div>
       <div class="field"><label for="fNote">Ghi chú</label><textarea id="fNote" rows="2"></textarea></div>
       <p class="err" id="fErr"></p>
@@ -1077,7 +1088,7 @@ function rowHtml(t){
     chips+='<span class="chip'+(real?'':' x')+'">'+esc(nameOf(list,t.cat))+'</span>';
     if(t.kind==="out"){var n=t.need||"need";chips+='<span class="chip '+n+'">'+NEED[n][0]+'</span>';var j=jarOf(t);if(j)chips+='<span class="chip">Hũ '+esc(jarName(j))+'</span>'}
     if(!real)chips+='<span class="chip x">Không tính thực</span>';
-    title=t.desc||nameOf(list,t.cat);meta.push(walletName(walletOf(t)));if(t.kind==="in"&&t.source)meta.push("Từ: "+t.source);
+    title=t.desc||nameOf(list,t.cat);meta.push(walletName(walletOf(t)));if(t.code)meta.push(t.code);if(t.kind==="in"&&t.source)meta.push("Từ: "+t.source);
     ico=t.kind==="in"?'<span class="ico in">↓</span>':'<span class="ico out">↑</span>';
     amt=(t.kind==="in"?"+":"−")+fmt.format(t.amount);cls=t.kind==="in"?"amt-in":"amt-out";
   }else if(t.kind==="transfer"){
@@ -1296,6 +1307,7 @@ function openForm(kind,tx){
   $("fAmt").value=tx?fmt.format(tx.amount):"";
   $("fDate").value=tx?tx.date:((today<r.from||today>r.to)&&ui.scope!=="all"?r.from:today);
   $("fDesc").value=tx?(tx.desc||""):"";$("fSource").value=tx?(tx.source||""):"";$("fNote").value=tx?(tx.note||""):"";
+  $("fCode").value=(kind==="in"||kind==="out")?(tx&&tx.code?tx.code:newCode()):"";
   setRadio("need",tx?(tx.need||"need"):"need");setRadio("status",tx?(tx.status||"done"):"done");
   updSplit();
   if(typeof dlg.showModal==="function")dlg.showModal();else dlg.setAttribute("open","");
@@ -1322,6 +1334,7 @@ $("txForm").addEventListener("submit",function(e){
   if(!date){err.textContent="Chọn ngày.";return}
   var t=editing?Object.assign({},editing):{id:uid(),kind:editKind,created:Date.now()};
   t.amount=amt;t.date=date;t.note=$("fNote").value.trim();
+  if(editKind==="in"||editKind==="out")t.code=$("fCode").value||newCode();
   if(editKind==="in"||editKind==="out"){
     t.cat=$("fCat").value;t.wallet=$("fWallet").value;t.desc=$("fDesc").value.trim();t.status=getRadio("status")||"done";
     if(editKind==="in"){t.source=$("fSource").value.trim();
@@ -1681,9 +1694,11 @@ async function loadAccount(session){
   store.mode="db";$("auth").hidden=true;
   catDraft=null;popDraft=null;syncCats();applyTheme();render();setSync("Đã lưu vào tài khoản");
   startupPopups();
+  bankStart();
 }
 function onSignedOut(){
   store.uid=null;store.mode="local";state.tx=[];state.settings=defaultSettings();syncCats();
+  store.bankKey=null;bankUi();if(bankChan&&sb)sb.removeChannel(bankChan);bankChan=null;
   document.querySelectorAll(".admin-only").forEach(function(el){el.hidden=true});
   render();showAuth("form");setSync("Chưa đăng nhập");
 }
@@ -1736,7 +1751,7 @@ $("adminList").addEventListener("change",async function(e){
 function renderAdminTab(){if(sb&&store.mode!=="local")loadAdmin()}
 
 /* ---------- Nhập / xuất dữ liệu: Excel và Google Sheet ---------- */
-var DS_HEAD=["Mã","Ngày","Loại","Số tiền","Hạng mục","Ví","Hũ","Nội dung","Nguồn","Mức cần thiết","Trạng thái","Ví chuyển đi","Ví nhận","Hũ chuyển đi","Hũ nhận","Ghi chú"];
+var DS_HEAD=["Mã","Ngày","Loại","Số tiền","Hạng mục","Ví","Hũ","Nội dung","Nguồn","Mức cần thiết","Trạng thái","Ví chuyển đi","Ví nhận","Hũ chuyển đi","Hũ nhận","Ghi chú","Mã CK"];
 var DS_KIND={"Khoản nhận":"in","Khoản chi":"out","Chuyển ví":"transfer","Chuyển hũ":"jartransfer"};
 var DS_KIND_LABEL={in:"Khoản nhận",out:"Khoản chi",transfer:"Chuyển ví",jartransfer:"Chuyển hũ"};
 var DS_NEED={"Cần thiết":"need","Chi thì tốt":"nice","Không cần thiết":"noneed"};
@@ -1748,6 +1763,7 @@ var DS_GUIDE=["Cách dùng file mẫu MONEVO",
   "3. Loại, Hạng mục, Ví, Hũ, Mức cần thiết và Trạng thái phải chọn đúng tên trong sheet “Danh sách”.",
   "4. Cột Mã để trống khi thêm khoản mới. Với khoản đã có, giữ nguyên Mã để không bị nhập trùng.",
   "5. Chuyển ví: điền Ví chuyển đi và Ví nhận. Chuyển hũ: điền Hũ chuyển đi và Hũ nhận. Cột không dùng thì để trống.",
+  "- Mã CK là mã dùng trong nội dung chuyển khoản ngân hàng (MV và 6 ký tự). Để trống khi thêm khoản mới, MONEVO tự tạo.",
   "6. Trạng thái “Dự kiến” là khoản chưa thực hiện, dùng cho kế hoạch dòng tiền.",
   "7. Excel: lưu file, mở MONEVO, bấm Nhập / xuất dữ liệu rồi chọn file để nhập.",
   "8. Google Sheet: bấm Đồng bộ từ Google Sheet trong MONEVO. Hệ thống tự điền Mã cho khoản mới."];
@@ -1804,6 +1820,7 @@ function dsRow(row,ix){
     if(t.fromJar===t.toJar)return {err:"Hai hũ phải khác nhau"};
     t.status="done";
   }
+  if(kind==="in"||kind==="out"){var cd=String(c("Mã CK")).trim().toUpperCase();if(CODE_RE.test(cd))t.code=cd}
   return {t:t};
 }
 /* Đọc bảng (dòng đầu là tiêu đề). Trả về items [{t,line,isNew}] và errors */
@@ -1820,6 +1837,14 @@ function dsParse(rows){
     var isNew=!x.t.id;if(isNew)x.t.id=uid();
     items.push({t:x.t,line:r+1,isNew:isNew});
   }
+  /* Mỗi khoản thu, chi cần một mã chuyển khoản: giữ mã đã có, thiếu thì tạo */
+  var used=codesUsed();
+  items.forEach(function(x){
+    var t=x.t;if(t.kind!=="in"&&t.kind!=="out")return;
+    x.codeNew=!t.code;if(t.code)return;
+    var old=state.tx.find(function(o){return o.id===t.id});
+    t.code=old&&old.code?old.code:newCode(used);
+  });
   return {items:items,errors:errors};
 }
 /* Thêm mới hoặc cập nhật theo Mã; ghi vào bộ nhớ rồi lưu lên máy chủ */
@@ -1858,7 +1883,7 @@ function dsOut(t){
     t.status==="plan"?"Dự kiến":"Đã thực hiện",
     tr?walletName(t.fromWallet):"",tr?walletName(t.toWallet):"",
     jt?jarName(t.fromJar):"",jt?jarName(t.toJar):"",
-    t.note||""];
+    t.note||"",t.code||""];
 }
 /* Danh sách giá trị hợp lệ, lấy theo cài đặt hiện tại */
 function dsListRows(){
@@ -1935,13 +1960,17 @@ function gsSync(){
   var g=state.settings.gsheet;
   if(!g){dsSet("gsMsg","Chưa có Google Sheet. Bấm “Tạo Google Sheet theo mẫu” trước.");return}
   dsSet("gsMsg","Đang đồng bộ…");
-  gsFetch(GS_API+g.id+"/values/"+encodeURIComponent("GhiChep!A2:P")+"?valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER")
+  gsFetch(GS_API+g.id+"/values/"+encodeURIComponent("GhiChep!A2:Q")+"?valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER")
     .then(function(j){
       var res=dsParse([DS_HEAD].concat(j.values||[]));
       if(res.error)throw new Error(res.error);
       /* Ghi Mã vào sheet trước cho khoản mới, để lần đồng bộ sau không nhập trùng */
-      var fill=res.items.filter(function(x){return x.isNew}).map(function(x){return {range:"GhiChep!A"+x.line,values:[[x.t.id]]}});
-      return Promise.resolve(fill.length?gsFetch(GS_API+g.id+"/values:batchUpdate",{method:"POST",body:JSON.stringify({valueInputOption:"RAW",data:fill})}):null).then(function(){
+      var fill=[{range:"GhiChep!Q1",values:[["Mã CK"]]}];
+      res.items.forEach(function(x){
+        if(x.isNew)fill.push({range:"GhiChep!A"+x.line,values:[[x.t.id]]});
+        if(x.codeNew)fill.push({range:"GhiChep!Q"+x.line,values:[[x.t.code]]});
+      });
+      return gsFetch(GS_API+g.id+"/values:batchUpdate",{method:"POST",body:JSON.stringify({valueInputOption:"RAW",data:fill})}).then(function(){
         var r=dsUpsert(res.items);
         dsSet("gsMsg","Đồng bộ xong: thêm "+r.added+", cập nhật "+r.updated+"."+dsErrs(res.errors));
         toast("Đã đồng bộ Google Sheet.");
@@ -1976,6 +2005,69 @@ $("xlFile").addEventListener("change",function(e){
 $("gsCreate").addEventListener("click",gsCreate);
 $("gsSync").addEventListener("click",gsSync);
 $("gsOpen").addEventListener("click",function(e){if(!state.settings.gsheet){e.preventDefault();toast("Chưa có Google Sheet. Bấm “Tạo Google Sheet theo mẫu” trước.")}});
+
+/* ---------- Mã chuyển khoản và kết nối ngân hàng ---------- */
+/* Mã gồm MV và 6 ký tự, bỏ I, L, O, 0, 1 cho khỏi nhầm khi gõ */
+var CODE_RE=/^MV[A-HJKMNP-Z2-9]{6}$/,CODE_CH="ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+var bankChan=null,bankBusy=false;
+function codesUsed(){var u={};state.tx.forEach(function(t){if(t.code)u[t.code]=1});return u}
+function newCode(used){
+  used=used||codesUsed();var c;
+  do{c="MV";for(var i=0;i<6;i++)c+=CODE_CH.charAt(Math.floor(Math.random()*CODE_CH.length))}while(used[c]);
+  used[c]=1;return c;
+}
+function copyText(s,msg){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(s).then(function(){toast(msg||"Đã sao chép.")},function(){toast("Không sao chép được, hãy chép tay.")});return}
+  var i=document.createElement("input");i.value=s;document.body.appendChild(i);i.select();
+  try{document.execCommand("copy");toast(msg||"Đã sao chép.")}catch(e){toast("Không sao chép được, hãy chép tay.")}
+  document.body.removeChild(i);
+}
+function bankUi(){
+  var cfg=window.MONEVO_CFG||{};
+  $("bankUrl").value=store.bankKey&&cfg.url?cfg.url.replace(/\/+$/,"")+"/functions/v1/bank-webhook?k="+store.bankKey:"";
+}
+/* Áp các giao dịch ngân hàng đã khớp mã: khoản “Dự kiến” cùng mã và cùng chiều thu, chi chuyển sang “Đã thực hiện” */
+function bankApply(manual){
+  if(!sb||store.mode!=="db"||bankBusy)return Promise.resolve();
+  bankBusy=true;
+  return sb.from("bank_events").select("*").eq("status","new").order("occurred_date").order("id").then(function(r){
+    if(r.error){if(manual)dsSet("bankMsg","Chưa đọc được giao dịch ngân hàng: "+r.error.message);return}
+    var applied=[],ignored=[],touched=[];
+    (r.data||[]).forEach(function(e){
+      var t=state.tx.find(function(x){return x.code===e.code});
+      if(!t||t.kind!==e.direction||done(t)){ignored.push(e.id);return}
+      var plan=t.amount;
+      t.status="done";t.date=e.occurred_date;
+      if(Number(e.amount)!==plan){t.amount=Number(e.amount);t.note=(t.note?t.note+" · ":"")+"Kế hoạch "+fmt.format(plan)+" ₫, ngân hàng báo "+fmt.format(Number(e.amount))+" ₫"}
+      if(t.kind==="in"&&state.settings.realIn[t.cat])t.alloc=splitNow(t.amount);else delete t.alloc;
+      touched.push(t);applied.push(e.id);
+    });
+    var jobs=[];
+    if(applied.length)jobs.push(sb.from("bank_events").update({status:"applied"}).in("id",applied));
+    if(ignored.length)jobs.push(sb.from("bank_events").update({status:"ignored"}).in("id",ignored));
+    if(touched.length){persistMany(touched);render();toast("Đã ghi nhận "+touched.length+" giao dịch từ ngân hàng.")}
+    dsSet("bankMsg",touched.length?"Đã ghi nhận "+touched.length+" giao dịch."+(ignored.length?" Bỏ qua "+ignored.length+" giao dịch vì khoản đã ghi nhận hoặc khác chiều thu chi.":""):(manual?"Không có giao dịch mới khớp mã."+(ignored.length?" Bỏ qua "+ignored.length+" giao dịch vì khoản đã ghi nhận hoặc khác chiều thu chi.":""):""));
+    return Promise.all(jobs);
+  }).catch(function(){}).then(function(){bankBusy=false});
+}
+/* Sau khi đăng nhập: bổ sung mã cho khoản cũ, lấy khóa webhook, áp giao dịch mới, lắng nghe giao dịch tới */
+function bankStart(){
+  var fix=[],used=codesUsed();
+  state.tx.forEach(function(t){if((t.kind==="in"||t.kind==="out")&&!t.code){t.code=newCode(used);fix.push(t)}});
+  if(fix.length){persistMany(fix);render()}
+  return sb.from("bank_keys").select("key").maybeSingle().then(function(bk){
+    if(bk.error||bk.data)return bk;
+    return sb.from("bank_keys").insert({user_id:store.uid}).then(function(){return sb.from("bank_keys").select("key").maybeSingle()});
+  }).then(function(bk){
+    store.bankKey=bk&&bk.data?bk.data.key:null;bankUi();
+    if(!bk||bk.error){dsSet("bankMsg","Chưa cài đặt phần kết nối ngân hàng trên máy chủ.");return}
+    bankApply(false);
+    if(!bankChan){try{bankChan=sb.channel("bank-"+store.uid).on("postgres_changes",{event:"INSERT",schema:"public",table:"bank_events",filter:"user_id=eq."+store.uid},function(){bankApply(false)}).subscribe()}catch(e){}}
+  });
+}
+$("fCodeCopy").addEventListener("click",function(){copyText($("fCode").value,"Đã sao chép mã "+$("fCode").value)});
+$("bankCopy").addEventListener("click",function(){if($("bankUrl").value)copyText($("bankUrl").value,"Đã sao chép địa chỉ webhook");else toast("Đăng nhập để có địa chỉ webhook.")});
+$("bankCheck").addEventListener("click",function(){bankApply(true)});
 
 /* ---------- Khởi động ---------- */
 gsCatchToken();syncCats();applyTheme();render();connect();
