@@ -652,6 +652,9 @@ body{background:var(--page);min-height:100vh}
           <p class="sub">Mỗi khoản thu, chi có một mã chuyển khoản dạng MVXXXXXX. Ghi mã vào nội dung chuyển khoản. Khi ngân hàng báo giao dịch có mã, MONEVO tự chuyển khoản “Dự kiến” tương ứng sang “Đã thực hiện”.</p>
           <div class="field"><label for="bankUrl">Địa chỉ webhook của bạn (giữ bí mật, không gửi cho người khác)</label>
             <div style="display:flex;gap:8px"><input id="bankUrl" class="fi" readonly placeholder="Đăng nhập để có địa chỉ webhook"><button class="btn btn-ghost btn-sm" id="bankCopy" type="button">Sao chép</button></div></div>
+          <div class="field mt"><label for="bankWallet">Ví nhận giao dịch từ email ngân hàng</label><select id="bankWallet"></select></div>
+          <label style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><input type="checkbox" id="bankAuto"><span>Tự tạo khoản mới khi giao dịch ngân hàng không có mã chuyển khoản (xếp vào loại “Khác”, bạn có thể sửa lại sau)</span></label>
+          <p class="sub" id="bankBal"></p>
           <div class="toolbar mt" style="margin-bottom:0"><button class="btn btn-ink btn-sm" id="bankCheck" type="button">Kiểm tra giao dịch ngân hàng</button><span class="sub" id="bankMsg"></span></div>
         </div>
         <div class="card">
@@ -825,7 +828,7 @@ function mergeSettings(s){
   if(!hasW&&s.opening!==undefined)w[0].opening=Number(s.opening)||0;
   return {inTypes:inT,outCats:outC,realIn:ri,realOut:ro,wallets:w,
     jars:Array.isArray(s.jars)&&s.jars.length?s.jars:d.jars,
-    catJar:Object.assign({},d.catJar,s.catJar||{}),budget:s.budget||{},theme:s.theme||"auto",popups:mergePopups(s.popups),gsheet:s.gsheet||null};
+    catJar:Object.assign({},d.catJar,s.catJar||{}),budget:s.budget||{},theme:s.theme||"auto",popups:mergePopups(s.popups),gsheet:s.gsheet||null,bankBal:s.bankBal||null,bankWallet:s.bankWallet||"",bankAuto:s.bankAuto!==false};
 }
 var state={tx:[],settings:defaultSettings()};
 var now=new Date();
@@ -1272,6 +1275,7 @@ function renderSettings(){
   var s=state.settings;
   $("budgetSetup").innerHTML=OUT_CATS.map(function(c){var v=Number(s.budget[c[0]])||0;return '<label><span>'+c[1]+'</span><input data-bg="'+c[0]+'" inputmode="numeric" class="num" placeholder="Không đặt" value="'+(v?fmt.format(v):"")+'"></label>'}).join("");
   document.querySelectorAll("[data-theme-set]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.themeSet===(s.theme||"auto")))});
+  bankUi();
 }
 function drawWalletSetup(){
   $("walletSetup").innerHTML='<div class="setup-row w muted" style="font-size:12px"><span>Tên ví</span><span>Số dư ban đầu</span><span></span></div>'+walletDraft.map(function(w,i){
@@ -2022,9 +2026,28 @@ function copyText(s,msg){
   try{document.execCommand("copy");toast(msg||"Đã sao chép.")}catch(e){toast("Không sao chép được, hãy chép tay.")}
   document.body.removeChild(i);
 }
+function bankWalletId(){
+  var w=state.settings.bankWallet;
+  if(wallets().some(function(x){return x.id===w}))return w;
+  return wallets().some(function(x){return x.id==="bank"})?"bank":wallets()[0].id;
+}
 function bankUi(){
-  var cfg=window.MONEVO_CFG||{};
+  var cfg=window.MONEVO_CFG||{},s=state.settings,wid=bankWalletId();
   $("bankUrl").value=store.bankKey&&cfg.url?cfg.url.replace(/\/+$/,"")+"/functions/v1/bank-webhook?k="+store.bankKey:"";
+  $("bankWallet").innerHTML=opts(walletOpts(),wid);
+  $("bankAuto").checked=s.bankAuto!==false;
+  $("bankBal").textContent=s.bankBal?"Số dư ngân hàng báo gần nhất: "+money(s.bankBal.amount)+" (ngày "+vnDate(s.bankBal.date)+"). Số dư ví “"+walletName(wid)+"” trong MONEVO: "+money(walletBalances()[wid]||0)+".":"";
+}
+/* Giao dịch ngân hàng không có mã: tạo khoản mới, xếp vào loại “Khác” */
+function bankNewTx(e){
+  var kind=e.direction,list=kind==="in"?state.settings.inTypes:state.settings.outCats,pref=kind==="in"?"khacin":"khacout";
+  var cat=list.some(function(c){return c.id===pref})?pref:list[list.length-1].id;
+  var t={id:uid(),kind:kind,created:Date.now(),amount:Number(e.amount),date:e.occurred_date,cat:cat,wallet:bankWalletId(),
+    desc:String(e.content||"").slice(0,120),note:"Tự động từ email ngân hàng",status:"done",code:newCode()};
+  if(kind==="in"){t.source="";if(state.settings.realIn[cat])t.alloc=splitNow(t.amount)}
+  else{t.need="need";t.jar=state.settings.catJar[cat]||""}
+  state.tx.push(t);
+  return t;
 }
 /* Áp các giao dịch ngân hàng đã khớp mã: khoản “Dự kiến” cùng mã và cùng chiều thu, chi chuyển sang “Đã thực hiện” */
 function bankApply(manual){
@@ -2032,8 +2055,13 @@ function bankApply(manual){
   bankBusy=true;
   return sb.from("bank_events").select("*").eq("status","new").order("occurred_date").order("id").then(function(r){
     if(r.error){if(manual)dsSet("bankMsg","Chưa đọc được giao dịch ngân hàng: "+r.error.message);return}
-    var applied=[],ignored=[],touched=[];
+    var applied=[],ignored=[],touched=[],bal=null;
     (r.data||[]).forEach(function(e){
+      if(e.balance!=null)bal={amount:Number(e.balance),date:e.occurred_date};
+      if(!e.code){
+        if(state.settings.bankAuto===false){ignored.push(e.id);return}
+        touched.push(bankNewTx(e));applied.push(e.id);return;
+      }
       var t=state.tx.find(function(x){return x.code===e.code});
       if(!t||t.kind!==e.direction||done(t)){ignored.push(e.id);return}
       var plan=t.amount;
@@ -2042,6 +2070,7 @@ function bankApply(manual){
       if(t.kind==="in"&&state.settings.realIn[t.cat])t.alloc=splitNow(t.amount);else delete t.alloc;
       touched.push(t);applied.push(e.id);
     });
+    if(bal){state.settings.bankBal=bal;persistSettings();bankUi()}
     var jobs=[];
     if(applied.length)jobs.push(sb.from("bank_events").update({status:"applied"}).in("id",applied));
     if(ignored.length)jobs.push(sb.from("bank_events").update({status:"ignored"}).in("id",ignored));
@@ -2068,6 +2097,8 @@ function bankStart(){
 $("fCodeCopy").addEventListener("click",function(){copyText($("fCode").value,"Đã sao chép mã "+$("fCode").value)});
 $("bankCopy").addEventListener("click",function(){if($("bankUrl").value)copyText($("bankUrl").value,"Đã sao chép địa chỉ webhook");else toast("Đăng nhập để có địa chỉ webhook.")});
 $("bankCheck").addEventListener("click",function(){bankApply(true)});
+$("bankWallet").addEventListener("change",function(e){state.settings.bankWallet=e.target.value;persistSettings();bankUi()});
+$("bankAuto").addEventListener("change",function(e){state.settings.bankAuto=e.target.checked;persistSettings()});
 
 /* ---------- Khởi động ---------- */
 gsCatchToken();syncCats();applyTheme();render();connect();
